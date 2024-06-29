@@ -38,6 +38,7 @@ in
             nautilus = pkgs.gnome3.nautilus;
             nvim = pkgs.neovim;
             bash = pkgs.bash;
+            xsecurelock = pkgs.xsecurelock;
           });
           ".config/awesome/set_wallpaper.sh".source = (pkgs.substituteAll {
             src = ./set_wallpaper.sh;
@@ -95,7 +96,11 @@ in
         services.flameshot.enable = true;
 
         programs.rofi.enable = true;
-        services.picom.enable = true;
+        services.picom = {
+          enable = true;
+          backend = "glx";
+          vSync = true;
+        };
 
         services.screen-locker = {
           enable = true;

@@ -17,6 +17,7 @@ in
           };
           settings = {
             shell = "${pkgs.fish}/bin/fish";
+            background_opacity = "0.8";
           };
         };
       };

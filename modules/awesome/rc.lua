@@ -263,6 +263,8 @@ globalkeys = my_table.join(
         {description = "terminal", group = "super"}),
     awful.key({ modkey }, "v", function () awful.util.spawn( "pavucontrol" ) end, -- TODO: ??????????
         {description = "pulseaudio control", group = "super"}),
+    awful.key({ modkey }, "Escape", function () awful.util.spawn( "@xsecurelock@/bin/xsecurelock" ) end,
+        {description = "go back", group = "tag"}),
 
     -- super + shift + ...
     awful.key({ modkey, "Shift"   }, "Return", function() awful.util.spawn( filemanager ) end),
@@ -443,7 +445,7 @@ globalkeys = my_table.join(
             beautiful.volume.update()
         end),
 
-    --Media keys supported by vlc, spotify, audacious, xmm2, ... TODO: work??
+    --Media keys supported by vlc, spotify, audacious, xmm2, ...
     awful.key({}, "XF86AudioPlay", function() awful.util.spawn("@playerctl@/bin/playerctl play-pause", false) end),
     awful.key({}, "XF86AudioNext", function() awful.util.spawn("@playerctl@/bin/playerctl next", false) end),
     awful.key({}, "XF86AudioPrev", function() awful.util.spawn("@playerctl@/bin/playerctl previous", false) end),
