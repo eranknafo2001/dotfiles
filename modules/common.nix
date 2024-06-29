@@ -19,6 +19,7 @@ in
     cryptsetup
     gnumake
     home-manager
+    xsel
   ];
 
   programs.firefox.enable = true;
