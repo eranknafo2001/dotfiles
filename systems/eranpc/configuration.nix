@@ -12,6 +12,10 @@
   my = {
     gaming.enable = true;
     nvim.enable = true;
+    kitty.enable = true;
+    shell.enable = true;
+    git.enable = true;
+    awesome.enable = true;
   };
 
   boot.loader.systemd-boot.enable = true;

@@ -8,19 +8,14 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    git
-    coreutils
-    wget
-    curl
-    jq
-    tmux
     gcc
-    file
-    cryptsetup
     gnumake
     home-manager
-    xsel
   ];
+
+  fonts = {
+    enableDefaultPackages = true;
+  };
 
   programs.firefox.enable = true;
 
@@ -53,20 +48,6 @@ in
       {
         home.username = "eran";
         home.homeDirectory = "/home/eran";
-
-        programs.fish.enable = true;
-        programs.kitty = {
-          enable = true;
-          settings = {
-            shell = "${pkgs.fish}/bin/fish";
-          };
-        };
-
-        programs.git = {
-          enable = true;
-          userName = "Eran Knafo";
-          userEmail = "eranknafo2001@gmail.com";
-        };
 
         home.stateVersion = "24.05";
 
