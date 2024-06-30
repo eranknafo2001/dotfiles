@@ -209,6 +209,7 @@ screen.connect_signal("property::geometry", function(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
     end
+    awful.spawn.with_shell(string.format("@bash@/bin/bash %s/.config/awesome/set_wallpaper.sh", os.getenv("HOME")))  
 end)
 
 -- No borders when rearranging only 1 non-floating or maximized client
