@@ -30,6 +30,11 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
 
+  networking.extraHosts =
+    ''
+      192.168.1.220 gnas.local
+    '';
+
   services.xserver = {
     layout = "us";
     xkbVariant = "";
