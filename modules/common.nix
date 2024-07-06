@@ -11,6 +11,9 @@ in
     gcc
     gnumake
     home-manager
+    pavucontrol
+    htop
+    nvtop
   ];
 
   fonts = {
