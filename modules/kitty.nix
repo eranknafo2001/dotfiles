@@ -18,6 +18,7 @@ in
           settings = {
             shell = "${pkgs.fish}/bin/fish";
             background_opacity = "0.8";
+            term = "xterm-256color";
           };
         };
       };
