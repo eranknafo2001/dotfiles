@@ -12,7 +12,9 @@ in
       enable = true;
       layout = "us";
       windowManager.awesome.enable = true;
+      displayManager.gdm.enable = true;
     };
+
     services.udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
     programs.dconf.enable = true;
     services.gvfs.enable = true;
