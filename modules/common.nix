@@ -14,6 +14,8 @@ in
     pavucontrol
     htop
     nvtop
+    sshfs
+    unzip
   ];
 
   fonts = {
