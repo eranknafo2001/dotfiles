@@ -14,6 +14,12 @@ in
           EDITOR = "nvim";
         };
 
+        home.packages = with pkgs; [
+            unzip
+            gcc
+            gnumake
+        ];
+
         programs.neovim = {
           enable = true;
           defaultEditor = true;
@@ -21,6 +27,7 @@ in
           extraPackages = with pkgs; [
             luarocks
             xclip
+            wl-clipboard
             tree-sitter
             unzip
             gcc
