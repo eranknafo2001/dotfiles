@@ -5,7 +5,9 @@ in
 {
   options.my.awesome = {
     enable = lib.mkEnableOption "awesome";
-    autorandr-profiles = lib.mkOption;
+    autorandr-profiles = lib.mkOption {
+        type = lib.types.anything;
+      };
   };
 
   config = lib.mkIf cfg.enable {
@@ -14,6 +16,17 @@ in
       layout = "us";
       windowManager.awesome.enable = true;
       displayManager.gdm.enable = true;
+    };
+
+
+    security.rtkit.enable = true;
+    hardware.pulseaudio.enable = false;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
     };
 
     services.udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
