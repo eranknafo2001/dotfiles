@@ -15,6 +15,7 @@ in
     htop
     nvtop
     sshfs
+    prusa-slicer
     unzip
   ];
 
