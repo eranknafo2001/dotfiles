@@ -17,6 +17,7 @@ in
     sshfs
     prusa-slicer
     unzip
+    google-chrome
   ];
 
   fonts = {
@@ -33,6 +34,7 @@ in
   };
 
   networking.networkmanager.enable = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   i18n.defaultLocale = "en_IL";
 
@@ -66,7 +68,7 @@ in
       eran = {
         isNormalUser = true;
         description = "Eran Knafo";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "dialout" ];
         hashedPassword = "$y$j9T$tD9ynCDDUUQt7V.SvsZI5.$UXPNkK4PIpnaIr5bT3AHqsSNLm8ZAWCJm4/4qYF0KaC";
       };
       root.hashedPassword = "$y$j9T$jPygLq0cBfqbzSBjnLchA1$0gOHnctTMQQCtqFuW2AmjCOhYltrFQYD7eRGwfX6K45";

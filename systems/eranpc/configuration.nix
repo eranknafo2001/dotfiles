@@ -15,6 +15,8 @@
     kitty.enable = true;
     shell.enable = true;
     git.enable = true;
+    discord.enable = true;
+    docker.enable = true;
     hyprland = {
       enable = true;
       monitors = [
@@ -52,7 +54,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.modesetting.enable = true;

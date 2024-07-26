@@ -24,7 +24,10 @@ in
           feh.enable = true;
           jq.enable = true;
           ripgrep.enable = true;
-          bat.enable = true;
+          bat = {
+            enable = true;
+            extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+          };
           eza = {
             enable = true;
             git = true;
