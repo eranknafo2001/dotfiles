@@ -7,15 +7,10 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/default.nix
+    ../../modules/system/default.nix
   ];
   my = {
     gaming.enable = true;
-    nvim.enable = true;
-    kitty.enable = true;
-    shell.enable = true;
-    git.enable = true;
-    discord.enable = true;
     docker.enable = true;
     hyprland = {
       enable = true;
@@ -43,17 +38,6 @@
   networking.extraHosts = ''
       192.168.1.220 gnas.local
     '';
-
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
-  services.printing.enable = true;
-
-
-  nixpkgs.config.allowUnfree = true;
-
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.modesetting.enable = true;

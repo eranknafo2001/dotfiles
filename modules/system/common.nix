@@ -1,12 +1,5 @@
 { pkgs, lib, config, inputs, ... }:
-let
-  cfg = config.eran;
-in
 {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-  ];
-
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
@@ -50,29 +43,13 @@ in
     LC_TIME = "he_IL.UTF-8";
   };
 
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users.eran = { config, pkgs, ... }:
-      {
-        home.username = "eran";
-        home.homeDirectory = "/home/eran";
-
-        home.stateVersion = "24.05";
-
-        programs.home-manager.enable = true;
-      };
+  services.xserver = {
+    layout = "us";
+    xkbVariant = "";
   };
-  users = {
-    mutableUsers = false;
-    users = {
-      eran = {
-        isNormalUser = true;
-        description = "Eran Knafo";
-        extraGroups = [ "networkmanager" "wheel" "dialout" ];
-        hashedPassword = "$y$j9T$tD9ynCDDUUQt7V.SvsZI5.$UXPNkK4PIpnaIr5bT3AHqsSNLm8ZAWCJm4/4qYF0KaC";
-      };
-      root.hashedPassword = "$y$j9T$jPygLq0cBfqbzSBjnLchA1$0gOHnctTMQQCtqFuW2AmjCOhYltrFQYD7eRGwfX6K45";
-    };
-  };
-  nix.settings.trusted-users = [ "eran" ];
+
+  services.printing.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
+
 }

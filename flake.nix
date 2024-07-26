@@ -40,7 +40,9 @@
       nixosConfigurations = {
         eranpc = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
-          modules = [ ./systems/eranpc/configuration.nix ];
+          modules = [ 
+            ./systems/eranpc/configuration.nix
+          ];
         };
       };
     };
