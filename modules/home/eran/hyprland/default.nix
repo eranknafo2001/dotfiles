@@ -104,6 +104,7 @@ in {
         "$mod SHIFT, X, exit,"
         "$mod, E, exec, $fileManager"
         "$mod, F, fullscreen,2"
+        "$mod, G, fullscreen,1"
         "$mod SHIFT, F, togglefloating,"
         "$mod, R, exec, ${pkgs.rofi-wayland}/bin/rofi -show drun"
         "$mod, escape, exec, hyprlock"

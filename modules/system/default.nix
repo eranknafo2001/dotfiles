@@ -7,6 +7,5 @@
     ./user.nix
     ./stylix.nix
     ./mpd.nix
-    ./vscode.nix
   ];
 }
