@@ -1,25 +1,23 @@
-{ pkgs, lib, config, inputs, osConfig, ... }:
+{ pkgs, lib, my, ... }:
 let
-  cfg = osConfig.my.hyprland;
+  cfg = my.hyprland;
   changeWallpaper = pkgs.writeShellScriptBin "changeWallpaper"
-    (lib.strings.concatMapStringsSep "\n"
-      (monitor: "hyprctl hyprpaper wallpaper \"${monitor.name},$(find -L ${./wallpapers} -type f | shuf -n 1)\"")
-      cfg.monitors
-    );
+    (lib.strings.concatMapStringsSep "\n" (monitor:
+      ''
+        hyprctl hyprpaper wallpaper "${monitor.name},$(find -L ${
+          ./wallpapers
+        } -type f | shuf -n 1)"'') cfg.monitors);
 in {
-  options.my.hyprland.hyprpaper = {
-    inherit changeWallpaper;
-  };
+  options.my.hyprland.hyprpaper = { inherit changeWallpaper; };
   config = {
-    home.packages = with pkgs; [
-      changeWallpaper
-    ];
+    home.packages = [ changeWallpaper ];
 
     services.hyprpaper = {
       enable = true;
       settings = {
         ipc = true;
-        preload = builtins.map (name: "${./wallpapers}/${name}") (builtins.attrNames (builtins.readDir ./wallpapers));
+        preload = builtins.map (name: "${./wallpapers}/${name}")
+          (builtins.attrNames (builtins.readDir ./wallpapers));
       };
     };
   };

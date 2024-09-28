@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -23,24 +24,22 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-
-        config = {
-          allowUnfree = true;
-        };
-      };
-    in
-    {
+  outputs = { self, nixpkgs, nur, ... }@inputs:
+    let system = "x86_64-linux";
+    in {
       nixosConfigurations = {
         eranpc = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
-          modules = [ 
+          modules = [
+            { nixpkgs.overlays = [ nur.overlay ]; }
             ./systems/eranpc/configuration.nix
           ];
         };

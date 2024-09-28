@@ -1,12 +1,13 @@
-{ config, pkgs, ... }:
-{
+{ ... }: {
   imports = [
+    ./apps.nix
+    ./styilx.nix
     ./git.nix
     ./kitty.nix
-    ./discord.nix
     ./nvim/default.nix
     ./shell/default.nix
     ./hyprland/default.nix
+    ./firefox/default.nix
   ];
   home.username = "eran";
   home.homeDirectory = "/home/eran";

@@ -1,5 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
-{
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
@@ -13,9 +12,7 @@
     google-chrome
   ];
 
-  fonts = {
-    enableDefaultPackages = true;
-  };
+  fonts = { enableDefaultPackages = true; };
 
   programs.firefox.enable = true;
 
@@ -44,12 +41,32 @@
   };
 
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    layout = "us,il";
+    xkbVariant = ",";
+    xkbOptions = "grp:win_space_toggle";
   };
 
   services.printing.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+    publish = {
+      enable = true;
+      userServices = true;
+      addresses = true;
+    };
+  };
 
+  boot.binfmt.registrations.appimage = {
+    wrapInterpreterInShell = false;
+    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+    recognitionType = "magic";
+    offset = 0;
+    mask = "\\xff\\xff\\xff\\xff\\x00\\x00\\x00\\x00\\xff\\xff\\xff";
+    magicOrExtension = "\\x7fELF....AI\\x02";
+  };
+
+  nixpkgs.config.allowUnfree = true;
 }
