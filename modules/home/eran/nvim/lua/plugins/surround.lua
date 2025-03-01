@@ -1,9 +1,5 @@
 return {
   {
-    "echasnovski/mini.surround",
-    enable = false,
-  },
-  {
     "kylechui/nvim-surround",
     event = "VeryLazy",
     config = function()

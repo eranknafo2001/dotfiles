@@ -1,3 +1,13 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ ytmdesktop vesktop nixfmt devenv vdhcoapp nmap ];
+  home.packages = with pkgs; [
+    ytmdesktop
+    vesktop
+    nixfmt-classic
+    devenv
+    vdhcoapp
+    nmap
+    cargo-generate
+    google-chrome
+    zen-browser
+  ];
 }

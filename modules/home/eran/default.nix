@@ -5,6 +5,7 @@
     ./git.nix
     ./kitty.nix
     ./nvim/default.nix
+    # ./nnvim/default.nix
     ./shell/default.nix
     ./hyprland/default.nix
     ./firefox/default.nix

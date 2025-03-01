@@ -3,7 +3,12 @@ let cfg = config.my.gaming;
 in {
   options.my.gaming = { enable = lib.mkEnableOption "gaming"; };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ lutris heroic bottles ];
+    environment.systemPackages = with pkgs; [
+      lutris
+      heroic
+      #bottles
+      # proton-ge-bin
+    ];
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;

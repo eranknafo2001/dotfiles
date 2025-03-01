@@ -1,3 +1,4 @@
+if true then return {} end
 return {
   "echasnovski/mini.pairs",
   enabled = true,

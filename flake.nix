@@ -3,7 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -30,6 +34,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    solaar = {
+      url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nur, ... }@inputs:
@@ -38,10 +47,8 @@
       nixosConfigurations = {
         eranpc = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit system inputs; };
-          modules = [
-            { nixpkgs.overlays = [ nur.overlay ]; }
-            ./systems/eranpc/configuration.nix
-          ];
+          modules =
+            [ nur.modules.nixos.default ./systems/eranpc/configuration.nix ];
         };
       };
     };

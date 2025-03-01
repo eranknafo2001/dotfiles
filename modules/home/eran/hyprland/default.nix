@@ -26,7 +26,7 @@ in {
             done
           '';
       in [
-        "${changeWallpaperService}/bin/changeWallpaperService"
+        "sleep 10 && ${changeWallpaperService}/bin/changeWallpaperService"
         "${pkgs.waybar}/bin/waybar"
       ];
       env = [ "XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24" ];
@@ -44,9 +44,11 @@ in {
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+        };
 
         blur = {
           enabled = true;

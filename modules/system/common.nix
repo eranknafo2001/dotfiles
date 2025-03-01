@@ -5,11 +5,10 @@
     home-manager
     pavucontrol
     htop
-    nvtop
+    # nvtop
     sshfs
     prusa-slicer
     unzip
-    google-chrome
   ];
 
   fonts = { enableDefaultPackages = true; };
@@ -41,16 +40,18 @@
   };
 
   services.xserver = {
-    layout = "us,il";
-    xkbVariant = ",";
-    xkbOptions = "grp:win_space_toggle";
+    xkb = {
+      layout = "us,il";
+      variant = ",";
+      options = "grp:win_space_toggle";
+    };
   };
 
   services.printing.enable = true;
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
     publish = {
       enable = true;

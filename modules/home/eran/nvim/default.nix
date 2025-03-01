@@ -1,25 +1,34 @@
 { pkgs, ... }: {
-  home.file.".config/nvim".source = ./.;
-  home.sessionVariables = { EDITOR = "nvim"; };
+  home.file."./.config/nvim/" = {
+    source = ./.;
+    recursive = true;
+  };
 
-  home.packages = with pkgs; [
-    unzip
-    gcc
-    gnumake
-    luarocks
-    xclip
-    wl-clipboard
-    tree-sitter
-    unzip
-    gcc
-    gnumake
-    nodejs
-    cargo
-  ];
+  home.sessionVariables = { EDITOR = "nvim"; };
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
     vimAlias = true;
     withNodeJs = true;
+    withPython3 = true;
+    extraPackages = with pkgs; [
+      fd
+      ripgrep
+      git
+      lazygit
+      fzf
+
+      wl-clipboard
+      gcc
+      gnumake
+      luarocks
+      unzip
+      nodejs
+
+      lua-language-server
+      stylua
+    ];
   };
 }

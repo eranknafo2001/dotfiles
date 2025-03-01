@@ -8,6 +8,7 @@
     };
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "backup";
     users.eran = import ../home/eran/default.nix;
   };
 

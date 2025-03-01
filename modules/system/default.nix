@@ -7,5 +7,6 @@
     ./user.nix
     ./stylix.nix
     ./mpd.nix
+    ./solaar.nix
   ];
 }
