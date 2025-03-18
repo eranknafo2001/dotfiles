@@ -1,17 +1,4 @@
 { inputs, config, ... }: {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-  home-manager = {
-    extraSpecialArgs = {
-      inherit inputs;
-      my.hyprland = config.my.hyprland;
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    users.eran = import ../home/eran/default.nix;
-  };
-
   users = {
     mutableUsers = false;
     users = {

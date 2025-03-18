@@ -1,6 +1,6 @@
 { pkgs, config, ... }: {
   programs.firefox = {
-    enable = true;
+    enable = false;
     # profiles.eran = {
     #   # extensions = with pkgs.nur.repos.rycee.firefox-addons; [ ];
     #   settings = { "extensions.autoDisableScopes" = 0; };

@@ -1,5 +1,5 @@
 return {
-  "hrsh7th/blink.cmp",
+  "saghen/blink.cmp",
   ---@param opts blink.cmp.Config
   opts = function(_, opts)
     opts.keymap["<C-k>"] = { 'select_prev', 'fallback' }

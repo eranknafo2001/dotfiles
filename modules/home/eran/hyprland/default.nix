@@ -1,5 +1,7 @@
-{ pkgs, lib, inputs, my, ... }:
-let cfg = my.hyprland;
+{ pkgs, lib, inputs, hyprland-config, ... }:
+let
+  cfg = hyprland-config;
+  ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in {
   imports = [
     ./waybar/default.nix
@@ -7,8 +9,13 @@ in {
     ./hypridle.nix
     ./hyprlock.nix
   ];
-  programs.rofi.enable = true;
-  programs.rofi.package = pkgs.rofi-wayland;
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+  };
+  fonts.fontconfig.enable = true;
+  home.packages = [ pkgs.nerd-fonts.hack ];
+
   services.avizo.enable = true;
   services.mako.enable = true;
   services.playerctld.enable = true;
@@ -101,7 +108,8 @@ in {
         cfg.monitors;
       "$mod" = "SUPER";
       bind = [
-        "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
+        # "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
+        "$mod, Return, exec, ${ghostty}/bin/ghostty"
         "$mod SHIFT, C, killactive,"
         "$mod SHIFT, X, exit,"
         "$mod, E, exec, $fileManager"

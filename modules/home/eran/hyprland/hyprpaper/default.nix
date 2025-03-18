@@ -1,6 +1,6 @@
-{ pkgs, lib, my, ... }:
+{ pkgs, lib, hyprland-config, ... }:
 let
-  cfg = my.hyprland;
+  cfg = hyprland-config;
   changeWallpaper = pkgs.writeShellScriptBin "changeWallpaper"
     (lib.strings.concatMapStringsSep "\n" (monitor:
       ''

@@ -5,8 +5,9 @@
     ./hyprland.nix
     ./docker.nix
     ./user.nix
-    ./stylix.nix
+    # ./stylix.nix
     ./mpd.nix
     ./solaar.nix
+    ./rustdesk.nix
   ];
 }

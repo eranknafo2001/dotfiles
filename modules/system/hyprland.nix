@@ -8,18 +8,9 @@ in {
         listOf (submodule {
           options = {
             name = lib.mkOption { type = str; };
-            resolution = lib.mkOption {
-              type = str;
-              default = "preferred";
-            };
-            position = lib.mkOption {
-              type = str;
-              default = "auto";
-            };
-            scale = lib.mkOption {
-              type = float;
-              default = 1.0;
-            };
+            resolution = lib.mkOption { type = str; };
+            position = lib.mkOption { type = str; };
+            scale = lib.mkOption { type = float; };
           };
         });
     };
@@ -39,7 +30,7 @@ in {
     programs.nm-applet.enable = true;
 
     security.rtkit.enable = true;
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
       alsa.enable = true;

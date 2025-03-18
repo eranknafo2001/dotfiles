@@ -1,24 +1,15 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, hyprland-config, ... }: {
   imports = [ ./hardware-configuration.nix ../../modules/system/default.nix ];
   my = {
     gaming.enable = true;
     docker.enable = true;
     mpd.enable = true;
     solaar.enable = true;
-    hyprland = {
-      enable = true;
-      monitors = [
-        {
-          name = "DP-4";
-          position = "0x0";
-        }
-        {
-          name = "HDMI-A-3";
-          position = "1920x0";
-        }
-      ];
-    };
+    rustdesk.enable = false;
+    hyprland = hyprland-config;
   };
+
+  # nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;

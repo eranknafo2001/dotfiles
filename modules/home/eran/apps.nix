@@ -8,6 +8,8 @@
     nmap
     cargo-generate
     google-chrome
-    zen-browser
+    pcmanfm
+    kicad
+    rustdesk
   ];
 }

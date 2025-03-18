@@ -9,6 +9,7 @@
     sshfs
     prusa-slicer
     unzip
+    base16-schemes
   ];
 
   fonts = { enableDefaultPackages = true; };
@@ -25,7 +26,7 @@
   networking.networkmanager.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  i18n.defaultLocale = "en_IL";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "he_IL.UTF-8";
