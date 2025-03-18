@@ -1,5 +1,9 @@
-{ pkgs, inputs, ... }: {
-  home.packages = [ inputs.ghostty.packages.x86_64-linux.default ];
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  home.packages = [inputs.ghostty.packages.x86_64-linux.default];
   home.file.".config/ghostty/config".text = ''
     command = ${pkgs.fish}/bin/fish
     shell-integration = fish

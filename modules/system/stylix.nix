@@ -1,5 +1,9 @@
-{ pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.nixosModules.stylix ../common/stylix.nix ];
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [inputs.stylix.nixosModules.stylix ../common/stylix.nix];
   # stylix.nixpkgs.pkgs = pkgs;
   stylix.fonts = {
     monospace = {

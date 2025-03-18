@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{inputs, ...}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     ./options.nix
@@ -15,7 +15,7 @@
       settings.style = "storm";
     };
     plugins = {
-      undotree.enable = true; 
+      undotree.enable = true;
       lz-n.enable = true;
     };
   };

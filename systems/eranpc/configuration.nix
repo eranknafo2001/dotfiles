@@ -1,5 +1,10 @@
-{ pkgs, config, hyprland-config, ... }: {
-  imports = [ ./hardware-configuration.nix ../../modules/system/default.nix ];
+{
+  pkgs,
+  config,
+  hyprland-config,
+  ...
+}: {
+  imports = [./hardware-configuration.nix ../../modules/system/default.nix];
   my = {
     gaming.enable = true;
     docker.enable = true;
@@ -59,7 +64,7 @@
   # };
   # boot.supportedFilesystems."fuse.sshfs" = true;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;
@@ -69,7 +74,7 @@
     open = false;
   };
 
-  services.udev.packages = [ pkgs.android-udev-rules ];
+  services.udev.packages = [pkgs.android-udev-rules];
 
   system.stateVersion = "24.05";
 }

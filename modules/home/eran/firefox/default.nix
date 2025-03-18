@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs.firefox = {
     enable = false;
     # profiles.eran = {

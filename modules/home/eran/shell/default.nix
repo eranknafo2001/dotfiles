@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [ xsel wget tmux file curl dust wl-clipboard ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [xsel wget tmux file curl dust wl-clipboard];
   home.file.".config/starship.toml".source = ./starship.toml;
   services.pueue.enable = true;
   programs = {
@@ -16,7 +16,7 @@
     ripgrep.enable = true;
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [ batdiff batman batgrep batwatch ];
+      extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch];
     };
     eza = {
       enable = true;

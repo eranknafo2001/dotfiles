@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   programs.nixvim.plugins = {
     nix-develop.enable = true;
     nvim-surround = {

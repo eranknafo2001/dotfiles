@@ -1,5 +1,10 @@
-{ pkgs, lib, inputs, hyprland-config, ... }:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  hyprland-config,
+  ...
+}: let
   cfg = hyprland-config;
   ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in {
@@ -14,7 +19,7 @@ in {
     package = pkgs.rofi-wayland;
   };
   fonts.fontconfig.enable = true;
-  home.packages = [ pkgs.nerd-fonts.hack ];
+  home.packages = [pkgs.nerd-fonts.hack];
 
   services.avizo.enable = true;
   services.mako.enable = true;
@@ -25,18 +30,17 @@ in {
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     settings = {
       exec-once = let
-        changeWallpaperService =
-          pkgs.writeShellScriptBin "changeWallpaperService" ''
-            while true; do
-              changeWallpaper
-              sleep ${toString (60 * 5)}
-            done
-          '';
+        changeWallpaperService = pkgs.writeShellScriptBin "changeWallpaperService" ''
+          while true; do
+            changeWallpaper
+            sleep ${toString (60 * 5)}
+          done
+        '';
       in [
         "sleep 10 && ${changeWallpaperService}/bin/changeWallpaperService"
         "${pkgs.waybar}/bin/waybar"
       ];
-      env = [ "XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24" ];
+      env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
       general = {
         gaps_in = 5;
         gaps_out = 10;
@@ -66,8 +70,8 @@ in {
         };
       };
       monitor = builtins.map (monitor:
-        with monitor;
-        "${name},${resolution},${position},${toString scale}") cfg.monitors;
+        with monitor; "${name},${resolution},${position},${toString scale}")
+      cfg.monitors;
       animations = {
         enabled = true;
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -84,7 +88,7 @@ in {
         pseudotile = true;
         preserve_split = true;
       };
-      master = { new_status = "master"; };
+      master = {new_status = "master";};
       misc = {
         # force_default_wallpaper = -1;
         # disable_hyprland_logo = false;
@@ -100,10 +104,11 @@ in {
 
         sensitivity = 0;
 
-        touchpad = { natural_scroll = false; };
+        touchpad = {natural_scroll = false;};
       };
-      gestures = { workspace_swipe = false; };
-      workspace = lib.lists.imap1
+      gestures = {workspace_swipe = false;};
+      workspace =
+        lib.lists.imap1
         (i: monitor: "${toString i}, monitor:${monitor.name}, default:true")
         cfg.monitors;
       "$mod" = "SUPER";
@@ -163,7 +168,6 @@ in {
         # Scroll through existing workspaces with mainMod + scroll
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
-
       ];
       bindl = [
         ",XF86AudioMicMute, exec, ${pkgs.avizo}/bin/volumectl -m toggle-mute"

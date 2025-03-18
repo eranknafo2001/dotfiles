@@ -1,4 +1,8 @@
-{ pkgs, inputs, ... }: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.hyprlock = {
     enable = true;
     package =
@@ -12,8 +16,8 @@
       font_family_clock = "Rubik Light";
       font_material_symbols = "Material Symbols Rounded";
     in {
-      general = { ignore_empty_input = true; };
-      background = { color = "rgba(000000FF)"; };
+      general = {ignore_empty_input = true;};
+      background = {color = "rgba(000000FF)";};
       input-field = {
         monitor = "";
         size = "250, 50";
@@ -28,7 +32,8 @@
         valign = "center";
       };
       label = [
-        { # Clock
+        {
+          # Clock
           monitor = "";
           text = "$TIME";
           shadow_passes = 1;
@@ -40,7 +45,8 @@
           halign = "center";
           valign = "center";
         }
-        { # Greeting
+        {
+          # Greeting
           monitor = "";
           text = "hi $USER !!!";
           shadow_passes = 1;
@@ -52,7 +58,8 @@
           halign = "center";
           valign = "center";
         }
-        { # lock icon
+        {
+          # lock icon
           monitor = "";
           text = "lock";
           shadow_passes = 1;
@@ -64,7 +71,8 @@
           halign = "center";
           valign = "bottom";
         }
-        { # "locked" text
+        {
+          # "locked" text
           monitor = "";
           text = "locked";
           shadow_passes = 1;

@@ -1,5 +1,11 @@
-{ pkgs, lib, config, inputs, ... }:
-let cfg = config.my.hyprland;
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}: let
+  cfg = config.my.hyprland;
 in {
   options.my.hyprland = {
     enable = lib.mkEnableOption "hyprland";
@@ -7,10 +13,10 @@ in {
       type = with lib.types;
         listOf (submodule {
           options = {
-            name = lib.mkOption { type = str; };
-            resolution = lib.mkOption { type = str; };
-            position = lib.mkOption { type = str; };
-            scale = lib.mkOption { type = float; };
+            name = lib.mkOption {type = str;};
+            resolution = lib.mkOption {type = str;};
+            position = lib.mkOption {type = str;};
+            scale = lib.mkOption {type = float;};
           };
         });
     };
@@ -25,7 +31,7 @@ in {
     };
 
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
     programs.nm-applet.enable = true;
 
@@ -39,7 +45,7 @@ in {
       jack.enable = true;
     };
 
-    environment.sessionVariables = { NIXOS_OZONE_WL = "1"; };
+    environment.sessionVariables = {NIXOS_OZONE_WL = "1";};
 
     hardware = {
       graphics.enable = true;
@@ -50,8 +56,7 @@ in {
       enable = true;
       settings = {
         default_session = {
-          command =
-            ''${pkgs.greetd.tuigreet}/bin/tuigreet -r --time --cmd "Hyprland"'';
+          command = ''${pkgs.greetd.tuigreet}/bin/tuigreet -r --time --cmd "Hyprland"'';
           user = "eran";
         };
       };

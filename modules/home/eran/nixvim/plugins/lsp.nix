@@ -1,4 +1,14 @@
-{ config, pkgs, ... }: let mkRaw = config.lib.nixvim.mkRaw; in {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  helpers = config.lib.nixvim;
+  inherit (helpers) mkRaw listToUnkeyedAttrs;
+  # inherit (lib) getExe;
+in {
+  # home.packages = [pkgs.alejandra];
   programs.nixvim.plugins = {
     blink-copilot = {
       enable = true;
@@ -10,8 +20,8 @@
       settings = {
         keymap = {
           preset = "enter";
-          "<C-k>" = [ "select_prev" "fallback" ];
-          "<C-j>" = [ "select_next" "fallback" ];
+          "<C-k>" = ["select_prev" "fallback"];
+          "<C-j>" = ["select_next" "fallback"];
         };
         sources = {
           providers = {
@@ -32,7 +42,7 @@
               };
             };
           };
-          default = [ "lsp" "path" "buffer" "copilot" ];
+          default = ["lsp" "path" "buffer" "copilot"];
         };
       };
     };
@@ -54,38 +64,57 @@
     };
     conform-nvim = {
       enable = true;
-      autoLoad = true;
-      settings = {
-        formatters_by_ft = {
-        rust = mkRaw ''{ "rustfmt", lsp_format = "fallback" }'';
-        svelte = mkRaw ''{ "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
-        javascript = mkRaw ''{ "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
-        typescript = mkRaw ''{ "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
-        nix = mkRaw ''{ "alejandra", lsp_format = "fallback" }'';
-        };
-      notify_on_error = true;
-      notify_on_formatters = true;
-        log_level = "trace";
-      formaters = {
-        alejandra = {
-          command = "${pkgs.alejandra}/bin/alejandra";
-          args = [ "$FILENAME" ];
-          stdin = false;
-          cwd = mkRaw ''require("conform.util").root_file({ "flake.nix" })'';
-        };
-        prettier = {
-          command = "${pkgs.nodePackages.prettier}/bin/prettier";
-        };
-        prettierd = {
-          command = "${pkgs.prettierd}/bin/prettierd";
-        };
-        rustfmt = {
-          command = "${pkgs.rustfmt}/bin/rustfmt";
-        };
+      lazyLoad.settings = {
+        cmd = "ConformInfo";
+        event = "BufWritePre";
+        keys = [
+          ((listToUnkeyedAttrs [
+              "<leader>cf"
+              (mkRaw ''function() require("conform").format() end'')
+            ])
+            // {
+              mode = ["n" "v"];
+              desc = "Format";
+            })
+        ];
       };
+      settings = {
+        format_on_save = mkRaw ''
+          function(bufnr)
+            if not (vim.g.autoformat or vim.b[bufnr].autoformat) then
+              return
+            end
+
+            return { timeout_ms = 500, lsp_format = "fallback" }
+          end
+        '';
+        formatters_by_ft = {
+          rust = mkRaw ''{ "rustfmt", lsp_format = "fallback" }'';
+          svelte =
+            mkRaw ''
+              { "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
+          javascript =
+            mkRaw ''
+              { "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
+          typescript =
+            mkRaw ''
+              { "prettierd", "prettier", lsp_format = "fallback", stop_after_first = true }'';
+          # nix = [ "nixfmt-rfc-style" ];
+          nix = ["alejandra"];
+        };
+        notify_on_error = true;
+        notify_on_formatters = true;
+        log_level = "trace";
+        formaters = {
+          alejandra = {command = "${lib.getExe pkgs.alejandra}";};
+          # nixfmt-rfc-style = { command = "${lib.getExe pkgs.nixfmt-rfc-style}"; };
+          # prettier . command = getExe .nodePackages.prettier;
+          # prettierd . command = getExe pkgs.prettierd;
+          # rustfmt . command = getExe pkgs.rustfmt;
+        };
       };
     };
-    fidget = { 
+    fidget = {
       enable = true;
       autoLoad = true;
     };

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     gcc
     gnumake
@@ -12,7 +12,7 @@
     base16-schemes
   ];
 
-  fonts = { enableDefaultPackages = true; };
+  fonts = {enableDefaultPackages = true;};
 
   programs.firefox.enable = true;
 
@@ -24,7 +24,7 @@
   };
 
   networking.networkmanager.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   i18n.defaultLocale = "en_US.UTF-8";
 
