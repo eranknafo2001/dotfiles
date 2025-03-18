@@ -1,8 +1,12 @@
 { config, pkgs, ... }: let mkRaw = config.lib.nixvim.mkRaw; in {
   programs.nixvim.plugins = {
-    blink-copilot.enable = true;
+    blink-copilot = {
+      enable = true;
+      autoLoad = true;
+    };
     blink-cmp = {
       enable = true;
+      autoLoad = true;
       settings = {
         keymap = {
           preset = "enter";
@@ -34,6 +38,7 @@
     };
     lsp = {
       enable = true;
+      autoLoad = true;
       servers = {
         nil_ls.enable = true;
         nushell.enable = true;
@@ -49,6 +54,7 @@
     };
     conform-nvim = {
       enable = true;
+      autoLoad = true;
       settings = {
         formatters_by_ft = {
         rust = mkRaw ''{ "rustfmt", lsp_format = "fallback" }'';
@@ -79,6 +85,9 @@
       };
       };
     };
-    fidget.enable = true;
+    fidget = { 
+      enable = true;
+      autoLoad = true;
+    };
   };
 }

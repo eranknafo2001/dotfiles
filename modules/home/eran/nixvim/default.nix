@@ -14,6 +14,9 @@
       enable = true;
       settings.style = "storm";
     };
-    plugins = { undotree.enable = true; };
+    plugins = {
+      undotree.enable = true; 
+      lz-n.enable = true;
+    };
   };
 }
