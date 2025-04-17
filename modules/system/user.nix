@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}: {
+{ ... }: {
   users = {
     mutableUsers = false;
     users = {

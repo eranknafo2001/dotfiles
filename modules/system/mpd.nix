@@ -5,8 +5,6 @@
 }: let
   cfg = config.my.mpd;
 in {
-  options.my.mpd = {enable = lib.mkEnableOption "mpd";};
-
   config = lib.mkIf cfg.enable {
     services.mpd = {
       enable = true;

@@ -1,11 +1,6 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  hyprland-config,
-  ...
-}: let
-  cfg = hyprland-config;
+{ pkgs, lib, inputs, config, ... }:
+let
+  cfg = config.my.hyprland;
   ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in {
   imports = [
@@ -14,16 +9,34 @@ in {
     ./hypridle.nix
     ./hyprlock.nix
   ];
+
   programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
   };
-  fonts.fontconfig.enable = true;
-  home.packages = [pkgs.nerd-fonts.hack];
 
-  services.avizo.enable = true;
-  services.mako.enable = true;
+  fonts.fontconfig.enable = true;
+
+  home.packages = [ pkgs.nerd-fonts.hack ];
+
+
+  services.avizo = {
+    enable = true;
+    settings = {
+      default = {
+        time = 0.5;
+      };
+    };
+  };
+
+  services.mako = {
+    enable = true;
+    defaultTimeout = 5000;
+  };
+
   services.playerctld.enable = true;
+
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -39,6 +52,7 @@ in {
       in [
         "sleep 10 && ${changeWallpaperService}/bin/changeWallpaperService"
         "${pkgs.waybar}/bin/waybar"
+        "${pkgs.clipse}/bin/clipse -listen"
       ];
       env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
       general = {
@@ -104,11 +118,17 @@ in {
 
         sensitivity = 0;
 
-        touchpad = {natural_scroll = false;};
+        touchpad = {
+          natural_scroll = true;
+          tap-to-click = true;
+          scroll_factor = 0.8;
+        };
       };
-      gestures = {workspace_swipe = false;};
-      workspace =
-        lib.lists.imap1
+      gestures = { 
+        workspace_swipe = true;
+        workspace_swipe_cancel_ratio = 0.3;
+      };
+      workspace = lib.lists.imap1
         (i: monitor: "${toString i}, monitor:${monitor.name}, default:true")
         cfg.monitors;
       "$mod" = "SUPER";
@@ -165,9 +185,14 @@ in {
         "$mod, S, togglespecialworkspace, magic"
         "$mod SHIFT, S, movetoworkspace, special:magic"
 
+        "$mod, V, exec, ${ghostty}/bin/ghostty --class=\"ghostty.clipse\" --background-opacity=1 -e ${pkgs.clipse}/bin/clipse"
+
         # Scroll through existing workspaces with mainMod + scroll
         "$mod, mouse_down, workspace, e+1"
         "$mod, mouse_up, workspace, e-1"
+
+        '', Print, exec, ${pkgs.grim}/bin/grim - | wl-copy''
+        ''SHIFT, Print, exec, ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | wl-copy''
       ];
       bindl = [
         ",XF86AudioMicMute, exec, ${pkgs.avizo}/bin/volumectl -m toggle-mute"
@@ -189,7 +214,11 @@ in {
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
-      windowrulev2 = "suppressevent maximize, class:.*";
+      windowrulev2 =[
+        "suppressevent maximize, class:.*"
+        "float,class:ghostty.clipse"
+        "size 622 652,class:ghostty.clipse"
+      ];
     };
   };
 }

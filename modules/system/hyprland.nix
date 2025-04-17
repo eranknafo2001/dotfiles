@@ -7,21 +7,6 @@
 }: let
   cfg = config.my.hyprland;
 in {
-  options.my.hyprland = {
-    enable = lib.mkEnableOption "hyprland";
-    monitors = lib.mkOption {
-      type = with lib.types;
-        listOf (submodule {
-          options = {
-            name = lib.mkOption {type = str;};
-            resolution = lib.mkOption {type = str;};
-            position = lib.mkOption {type = str;};
-            scale = lib.mkOption {type = float;};
-          };
-        });
-    };
-  };
-
   config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = true;
@@ -49,7 +34,7 @@ in {
 
     hardware = {
       graphics.enable = true;
-      nvidia.modesetting.enable = true;
+      nvidia.modesetting.enable = cfg.nvidia;
     };
 
     services.greetd = {

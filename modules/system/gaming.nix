@@ -6,7 +6,6 @@
 }: let
   cfg = config.my.gaming;
 in {
-  options.my.gaming = {enable = lib.mkEnableOption "gaming";};
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       lutris

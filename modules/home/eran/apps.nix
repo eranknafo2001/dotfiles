@@ -8,7 +8,9 @@
     cargo-generate
     google-chrome
     pcmanfm
-    kicad
-    rustdesk
+    bitwarden-desktop
+    stremio
+    #kicad
+    #rustdesk
   ];
 }

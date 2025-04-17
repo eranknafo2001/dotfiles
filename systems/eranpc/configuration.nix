@@ -1,19 +1,5 @@
-{
-  pkgs,
-  config,
-  hyprland-config,
-  ...
-}: {
-  imports = [./hardware-configuration.nix ../../modules/system/default.nix];
-  my = {
-    gaming.enable = true;
-    docker.enable = true;
-    mpd.enable = true;
-    solaar.enable = true;
-    rustdesk.enable = false;
-    hyprland = hyprland-config;
-  };
-
+{ pkgs, config, ... }: {
+  imports = [ ./hardware-configuration.nix ../../modules/system/default.nix ];
   # nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = false;
@@ -24,10 +10,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = true;
-  };
 
   networking.hostName = "eranpc";
 

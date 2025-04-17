@@ -9,5 +9,8 @@
     ./mpd.nix
     ./solaar.nix
     ./rustdesk.nix
+    ./suwayomi.nix
+    ./tailscale.nix
+    ./sshd.nix
   ];
 }

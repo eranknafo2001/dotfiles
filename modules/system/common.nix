@@ -10,6 +10,8 @@
     prusa-slicer
     unzip
     base16-schemes
+    vim
+    git
   ];
 
   fonts = {enableDefaultPackages = true;};
