@@ -1,5 +1,10 @@
-{ pkgs, lib, inputs, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  inputs,
+  config,
+  ...
+}: let
   cfg = config.my.hyprland;
   ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in {
@@ -17,8 +22,7 @@ in {
 
   fonts.fontconfig.enable = true;
 
-  home.packages = [ pkgs.nerd-fonts.hack ];
-
+  home.packages = [pkgs.nerd-fonts.hack];
 
   services.avizo = {
     enable = true;
@@ -35,7 +39,6 @@ in {
   };
 
   services.playerctld.enable = true;
-
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -124,11 +127,12 @@ in {
           scroll_factor = 0.8;
         };
       };
-      gestures = { 
+      gestures = {
         workspace_swipe = true;
         workspace_swipe_cancel_ratio = 0.3;
       };
-      workspace = lib.lists.imap1
+      workspace =
+        lib.lists.imap1
         (i: monitor: "${toString i}, monitor:${monitor.name}, default:true")
         cfg.monitors;
       "$mod" = "SUPER";
@@ -214,7 +218,7 @@ in {
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
-      windowrulev2 =[
+      windowrulev2 = [
         "suppressevent maximize, class:.*"
         "float,class:ghostty.clipse"
         "size 622 652,class:ghostty.clipse"

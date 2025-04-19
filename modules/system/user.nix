@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   users = {
     mutableUsers = false;
     users = {

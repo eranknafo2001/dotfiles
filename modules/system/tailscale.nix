@@ -1,5 +1,8 @@
-{ lib, config, ... }:
-let 
+{
+  lib,
+  config,
+  ...
+}: let
   cfg = config.my.tailscale;
 in {
   config = lib.mkIf cfg.enable {

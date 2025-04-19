@@ -1,5 +1,9 @@
-{ pkgs, config, ... }: {
-  imports = [ ./hardware-configuration.nix ../../modules/system/default.nix ];
+{
+  pkgs,
+  config,
+  ...
+}: {
+  imports = [./hardware-configuration.nix ../../modules/system/default.nix];
   # nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = false;
@@ -9,7 +13,6 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
-
 
   networking.hostName = "eranpc";
 

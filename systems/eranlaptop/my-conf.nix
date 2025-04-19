@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   my = {
     gaming.enable = false;
     docker.enable = true;
