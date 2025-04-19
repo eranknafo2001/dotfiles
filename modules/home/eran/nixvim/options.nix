@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nixvim = {
     globals = {
       mapleader = " ";
@@ -52,7 +56,7 @@
 
       smoothscroll = true;
 
-      shell = pkgs.fish;
+      shell = lib.getExe pkgs.fish;
     };
   };
 }

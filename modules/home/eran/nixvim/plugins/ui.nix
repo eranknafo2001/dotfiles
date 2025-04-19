@@ -1,12 +1,43 @@
 {config, ...}: let
-  helpers = config.lib.nixvim;
-  mkRaw = helpers.mkRaw;
-  listToUnkeyedAttrs = helpers.listToUnkeyedAttrs;
+  inherit (config.lib.nixvim) mkRaw listToUnkeyedAttrs;
 in {
   programs.nixvim.plugins = {
     bufferline = {
       enable = true;
-      lazyLoad.settings.event = "DeferredUIEnter";
+      lazyLoad.settings = {
+        event = "DeferredUIEnter";
+        keys = [
+          ((listToUnkeyedAttrs ["<leader>bp" "<Cmd>BufferLineTogglePin<CR>"]) // {desc = "Toggle Pin";})
+          ((listToUnkeyedAttrs ["<leader>bP" "<Cmd>BufferLineGroupClose ungrouped<CR>"]) // {desc = "Delete Non-Pinned Buffers";})
+          ((listToUnkeyedAttrs ["<leader>br" "<Cmd>BufferLineCloseRight<CR>"]) // {desc = "Delete Buffers to the Right";})
+          ((listToUnkeyedAttrs ["<leader>bl" "<Cmd>BufferLineCloseLeft<CR>"]) // {desc = "Delete Buffers to the Left";})
+          ((listToUnkeyedAttrs ["<S-h>" "<cmd>BufferLineCyclePrev<cr>"]) // {desc = "Prev Buffer";})
+          ((listToUnkeyedAttrs ["<S-l>" "<cmd>BufferLineCycleNext<cr>"]) // {desc = "Next Buffer";})
+          ((listToUnkeyedAttrs ["[b" "<cmd>BufferLineCyclePrev<cr>"]) // {desc = "Prev Buffer";})
+          ((listToUnkeyedAttrs ["]b" "<cmd>BufferLineCycleNext<cr>"]) // {desc = "Next Buffer";})
+          ((listToUnkeyedAttrs ["[B" "<cmd>BufferLineMovePrev<cr>"]) // {desc = "Move buffer prev";})
+          ((listToUnkeyedAttrs ["]B" "<cmd>BufferLineMoveNext<cr>"]) // {desc = "Move buffer next";})
+        ];
+      };
+      settings.options = {
+        mode = "buffers";
+        close_command = mkRaw "function(n) Snacks.bufdelete(n) end";
+        right_mouse_command = mkRaw "function(n) Snacks.bufdelete(n) end";
+        # diagnostics = "nvim_lsp";
+        always_show_bufferline = false;
+        tab_size = 50;
+        offsets = [
+          {
+            filetype = "neo-tree";
+            text = "Neo-tree";
+            highlight = "Directory";
+            text_align = "left";
+          }
+          {
+            filetype = "snacks_layout_box";
+          }
+        ];
+      };
     };
     nvim-tree = {
       enable = true;
@@ -17,7 +48,10 @@ in {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";
     };
-    web-devicons.enable = true;
+    web-devicons = {
+      enable = true;
+      lazyLoad.settings.event = "DeferredUIEnter";
+    };
     which-key = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";
@@ -201,12 +235,12 @@ in {
         {
           type = "button";
           val = "  Restore Session";
-          on_press = mkRaw "require('persistence').load";
+          on_press = mkRaw "function() require('lz.n').trigger_load('persistence'); require('persistence').load() end";
           opts = {
             keymap = [
               "n"
               "s"
-              (mkRaw "require('persistence').load")
+              (mkRaw "function() require('lz.n').trigger_load('persistence'); require('persistence').load() end")
               {
                 noremap = true;
                 silent = true;
@@ -249,7 +283,7 @@ in {
         }
       ];
     };
-    lightline = {
+    lualine = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";
     };
@@ -263,6 +297,7 @@ in {
             ((listToUnkeyedAttrs ["<leader><space>" (mkRaw "function() _G.smart_files() end")]) // {desc = "Files";})
             ((listToUnkeyedAttrs ["<leader>ff" (mkRaw "function() _G.smart_files() end")]) // {desc = "Files";})
             ((listToUnkeyedAttrs ["<leader>sg" (mkRaw "function() require('fzf-lua').live_grep() end")]) // {desc = "Live Grep";})
+            ((listToUnkeyedAttrs ["<leader>sb" (mkRaw "function() require('fzf-lua').buffers() end")]) // {desc = "Buffers";})
           ];
         };
       };

@@ -1,7 +1,7 @@
-{config, ...}: {
-  programs.nixvim.keymaps = let
-    mkRaw = config.lib.nixvim.mkRaw;
-  in [
+{config, ...}: let
+  inherit (config.lib.nixvim) mkRaw;
+in {
+  programs.nixvim.keymaps = [
     {
       action = mkRaw "function() Snacks.bufdelete() end";
       key = "<leader>bd";
