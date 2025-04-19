@@ -5,7 +5,7 @@
     docker.enable = true;
     mpd.enable = false;
     solaar.enable = false;
-    rustdesk.enable = true;
+    rustdesk.enable = false;
     suwayomi.enable = false;
     tailscale.enable = true;
     sshd.enable = false;
