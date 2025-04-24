@@ -22,7 +22,7 @@ in {
 
   fonts.fontconfig.enable = true;
 
-  home.packages = [pkgs.nerd-fonts.hack];
+  home.packages = with pkgs; [nerd-fonts.hack bibata-cursors];
 
   services.avizo = {
     enable = true;
@@ -40,6 +40,20 @@ in {
 
   services.playerctld.enable = true;
 
+  home.sessionVariables = {
+    XCURSOR_THEME = "Bibata-Modern-Ice";
+    XCURSOR_SIZE = "24";
+  };
+
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      name = "Bibata-Modern-Ice"; # Replace with your theme
+      package = pkgs.bibata-cursors;
+      size = 24;
+    };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -56,6 +70,7 @@ in {
         "sleep 10 && ${changeWallpaperService}/bin/changeWallpaperService"
         "${pkgs.waybar}/bin/waybar"
         "${pkgs.clipse}/bin/clipse -listen"
+        "hyprctl setcursor Bibata-Modern-Ice 24"
       ];
       env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
       general = {
