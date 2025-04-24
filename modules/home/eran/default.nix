@@ -3,6 +3,7 @@
     ./apps.nix
     ./styilx.nix
     ./git.nix
+    ./tailscale.nix
     ./term/default.nix
     # ./nvim/default.nix
     ./nixvim/default.nix
