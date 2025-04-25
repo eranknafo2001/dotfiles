@@ -67,10 +67,10 @@ in {
           done
         '';
       in [
-        "sleep 10 && ${changeWallpaperService}/bin/changeWallpaperService"
         "${pkgs.waybar}/bin/waybar"
         "${pkgs.clipse}/bin/clipse -listen"
         "hyprctl setcursor Bibata-Modern-Ice 24"
+        "sleep 3 && ${changeWallpaperService}/bin/changeWallpaperService"
       ];
       env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
       general = {
