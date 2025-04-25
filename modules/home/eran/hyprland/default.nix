@@ -50,10 +50,18 @@ in {
   gtk = {
     enable = true;
     cursorTheme = {
-      name = "Bibata-Modern-Ice"; # Replace with your theme
+      name = "Bibata-Modern-Ice";
       package = pkgs.bibata-cursors;
       size = 24;
     };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+  };
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
   };
 
   wayland.windowManager.hyprland = {

@@ -1,33 +1,48 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.my.hyprland;
+in {
   home.packages = with pkgs; [font-awesome];
   programs.waybar = {
     enable = true;
     settings = {
       mainBar = {
-        height = 24;
+        height = 28;
         modules-left = ["hyprland/workspaces" "custom/media"];
         modules-center = ["hyprland/window"];
-        modules-right = [
-          "idle_inhibitor"
-          "temperature"
-          "cpu"
-          "memory"
-          "pulseaudio"
-          "backlight"
-          "keyboard-state"
-          "tray"
-          "clock"
-        ];
-        "hyprland/workspaces" = {all-outputs = true;};
-        "hyprland/window" = {separate-outputs = true;};
-        keyboard-state = {
-          numlock = true;
-          capslock = true;
-          format = "{name} {icon}";
-          format-icons = {
-            locked = "";
-            unlocked = "";
-          };
+        modules-right =
+          [
+            "idle_inhibitor"
+            "temperature"
+            "cpu"
+            "memory"
+            "pulseaudio"
+            "backlight"
+          ]
+          ++ (lib.optionals cfg.battery ["upower"])
+          ++ [
+            "hyprland/language"
+            "tray"
+            "clock"
+          ];
+        "hyprland/workspaces".all-outputs = true;
+        "hyprland/window".separate-outputs = true;
+        backlight = {
+          format = "{icon} {percent}%";
+          format-icons = ["🔆"];
+        };
+        upower = lib.mkIf cfg.battery {
+          format = " {percentage}";
+          icon-size = 10;
+        };
+
+        "hyprland/language" = {
+          format-en = "Eng";
+          format-he = "Heb";
         };
         idle_inhibitor = {
           format = "{icon}";
@@ -36,14 +51,14 @@
             deactivated = "";
           };
         };
-        tray = {spacing = 10;};
+        tray.spacing = 10;
         temperature = {
           thermal-zone = 2;
           hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
           critical-threshold = 80;
           format-critical = "{icon} {temperatureC}°C";
           format = "{icon} {temperatureC}°C";
-          format-icons = ["<U+F76B>" "<U+F2C9>" "<U+F769>"];
+          format-icons = ["" ""];
         };
         clock = {
           tooltip-format = ''
@@ -51,8 +66,8 @@
             <tt><small>{calendar}</small></tt>'';
           format = "{:L%Y-%m-%d<small>[%a]</small> <tt><small>%p</small></tt>%I:%M}";
         };
-        cpu = {format = "  {usage}%";};
-        memory = {format = "  {}%";};
+        cpu.format = "  {usage}%";
+        memory.format = "  {}%";
         pulseaudio = {
           scroll-step = 5;
           format = "{icon}   {volume}% {format_source}";
@@ -61,7 +76,7 @@
           format-muted = "  {format_source}";
           format-source = " {volume}%";
           format-source-muted = "";
-          format-icons = {default = ["" "" ""];};
+          format-icons.default = ["" "" ""];
           on-click = "pavucontrol";
           on-click-right = "foot -a pw-top pw-top";
         };

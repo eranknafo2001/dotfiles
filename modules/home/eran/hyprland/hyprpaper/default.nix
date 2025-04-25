@@ -10,7 +10,8 @@
     (lib.strings.concatMapStringsSep "\n" (monitor: ''
       hyprctl hyprpaper wallpaper "${monitor.name},$(find -L ${
         ./wallpapers
-      } -type f | shuf -n 1)"'') cfg.monitors);
+      } -type f | shuf -n 1)"'')
+    cfg.monitors);
 in {
   home.packages = [changeWallpaper];
 

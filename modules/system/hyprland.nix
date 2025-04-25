@@ -21,13 +21,16 @@ in {
     programs.nm-applet.enable = true;
 
     security.rtkit.enable = true;
-    services.pulseaudio.enable = false;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
+    services = {
+      upower.enable = cfg.battery;
+      pulseaudio.enable = false;
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+      };
     };
 
     environment.sessionVariables = {NIXOS_OZONE_WL = "1";};

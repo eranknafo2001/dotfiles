@@ -5,6 +5,10 @@
     hyprland = {
       enable = lib.mkEnableOption "hyprland";
       nvidia = lib.mkOption {type = lib.types.bool;};
+      battery = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
       monitors = lib.mkOption {
         type = with lib.types;
           listOf (submodule {

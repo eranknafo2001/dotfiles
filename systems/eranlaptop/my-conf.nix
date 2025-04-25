@@ -12,6 +12,7 @@
     hyprland = {
       enable = true;
       nvidia = false;
+      battery = true;
       monitors = [
         {
           name = "eDP-1";
