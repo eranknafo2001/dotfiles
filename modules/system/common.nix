@@ -35,7 +35,7 @@
     LC_NUMERIC = "he_IL.UTF-8";
     LC_PAPER = "he_IL.UTF-8";
     LC_TELEPHONE = "he_IL.UTF-8";
-    LC_TIME = "en_IL.UTF-8";
+    LC_TIME = "en_IL";
   };
 
   services = {
