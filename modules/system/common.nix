@@ -5,16 +5,12 @@
     home-manager
     pavucontrol
     htop
-    # nvtop
-    sshfs
-    prusa-slicer
     unzip
-    base16-schemes
     vim
     git
   ];
 
-  fonts = {enableDefaultPackages = true;};
+  fonts.enableDefaultPackages = true;
 
   programs.firefox.enable = true;
 
@@ -39,27 +35,29 @@
     LC_NUMERIC = "he_IL.UTF-8";
     LC_PAPER = "he_IL.UTF-8";
     LC_TELEPHONE = "he_IL.UTF-8";
-    LC_TIME = "he_IL.UTF-8";
+    LC_TIME = "en_IL.UTF-8";
   };
 
-  services.xserver = {
-    xkb = {
-      layout = "us,il";
-      variant = ",";
-      options = "grp:win_space_toggle";
+  services = {
+    xserver = {
+      xkb = {
+        layout = "us,il";
+        variant = ",";
+        options = "grp:win_space_toggle";
+      };
     };
-  };
 
-  services.printing.enable = true;
+    printing.enable = true;
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-    publish = {
+    avahi = {
       enable = true;
-      userServices = true;
-      addresses = true;
+      nssmdns4 = true;
+      openFirewall = true;
+      publish = {
+        enable = true;
+        userServices = true;
+        addresses = true;
+      };
     };
   };
 

@@ -8,6 +8,7 @@
     suwayomi.enable = false;
     tailscale.enable = true;
     sshd.enable = false;
+    bluetooth.enable = true;
     hyprland = {
       enable = true;
       nvidia = false;

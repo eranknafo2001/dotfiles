@@ -24,21 +24,23 @@ in {
 
   home.packages = with pkgs; [nerd-fonts.hack bibata-cursors];
 
-  services.avizo = {
-    enable = true;
-    settings = {
-      default = {
-        time = 0.5;
+  services = {
+    avizo = {
+      enable = true;
+      settings = {
+        default = {
+          time = 0.5;
+        };
       };
     };
-  };
 
-  services.mako = {
-    enable = true;
-    defaultTimeout = 5000;
-  };
+    mako = {
+      enable = true;
+      defaultTimeout = 5000;
+    };
 
-  services.playerctld.enable = true;
+    playerctld.enable = true;
+  };
 
   home.sessionVariables = {
     XCURSOR_THEME = "Bibata-Modern-Ice";

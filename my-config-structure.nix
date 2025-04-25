@@ -23,5 +23,6 @@
     suwayomi = {enable = lib.mkEnableOption "suwayomi";};
     tailscale = {enable = lib.mkEnableOption "tailscale";};
     sshd = {enable = lib.mkEnableOption "sshd";};
+    bluetooth = {enable = lib.mkEnableOption "bluetooth";};
   };
 }

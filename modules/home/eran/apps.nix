@@ -10,6 +10,7 @@
     pcmanfm
     bitwarden-desktop
     stremio
+    prusa-slicer
     #kicad
     #rustdesk
   ];

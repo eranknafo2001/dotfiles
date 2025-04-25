@@ -12,5 +12,6 @@
     ./suwayomi.nix
     ./tailscale.nix
     ./sshd.nix
+    ./bluetooth.nix
   ];
 }
