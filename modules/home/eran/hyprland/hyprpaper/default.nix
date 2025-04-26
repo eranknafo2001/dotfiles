@@ -13,15 +13,17 @@
       } -type f | shuf -n 1)"'')
     cfg.monitors);
 in {
-  home.packages = [changeWallpaper];
+  config = lib.mkIf cfg.enable {
+    home.packages = [changeWallpaper];
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      ipc = true;
-      preload =
-        builtins.map (name: "${./wallpapers}/${name}")
-        (builtins.attrNames (builtins.readDir ./wallpapers));
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = true;
+        preload =
+          builtins.map (name: "${./wallpapers}/${name}")
+          (builtins.attrNames (builtins.readDir ./wallpapers));
+      };
     };
   };
 }

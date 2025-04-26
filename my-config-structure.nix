@@ -1,7 +1,7 @@
 {lib, ...}: {
   options.my = {
-    gaming = {enable = lib.mkEnableOption "gaming";};
-    docker = {enable = lib.mkEnableOption "docker";};
+    gaming.enable = lib.mkEnableOption "gaming";
+    docker.enable = lib.mkEnableOption "docker";
     hyprland = {
       enable = lib.mkEnableOption "hyprland";
       nvidia = lib.mkOption {type = lib.types.bool;};
@@ -21,12 +21,12 @@
           });
       };
     };
-    mpd = {enable = lib.mkEnableOption "mpd";};
-    rustdesk = {enable = lib.mkEnableOption "rustdesk";};
-    solaar = {enable = lib.mkEnableOption "solaar";};
-    suwayomi = {enable = lib.mkEnableOption "suwayomi";};
-    tailscale = {enable = lib.mkEnableOption "tailscale";};
-    sshd = {enable = lib.mkEnableOption "sshd";};
-    bluetooth = {enable = lib.mkEnableOption "bluetooth";};
+    mpd.enable = lib.mkEnableOption "mpd";
+    rustdesk.enable = lib.mkEnableOption "rustdesk";
+    solaar.enable = lib.mkEnableOption "solaar";
+    suwayomi.enable = lib.mkEnableOption "suwayomi";
+    tailscale.enable = lib.mkEnableOption "tailscale";
+    sshd.enable = lib.mkEnableOption "sshd";
+    bluetooth.enable = lib.mkEnableOption "bluetooth";
   };
 }

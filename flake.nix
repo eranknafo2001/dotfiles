@@ -51,11 +51,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ghostty.url = "github:ghostty-org/ghostty";
+    ghostty = {
+      url = "github:ghostty-org/ghostty/1.1.x";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
   };
 
   outputs = {
-    self,
     nixpkgs,
     nur,
     ...
