@@ -8,7 +8,9 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.kernelModules = ["iwlwifi" "i2c_hid" "i2c_hid_acpi"];
+  boot.kernelModules = ["i2c_hid" "i2c_hid_acpi"];
+  boot.blacklistedKernelModules = ["asus_nb_wmi"];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   #services.openssh = {
   #  enable = true;
