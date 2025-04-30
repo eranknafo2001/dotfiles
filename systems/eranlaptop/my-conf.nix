@@ -9,6 +9,7 @@
     tailscale.enable = true;
     sshd.enable = false;
     bluetooth.enable = true;
+    kde-connect.enable = true;
     hyprland = {
       enable = true;
       nvidia = false;

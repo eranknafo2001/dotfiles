@@ -13,5 +13,6 @@
     ./tailscale.nix
     ./sshd.nix
     ./bluetooth.nix
+    ./kde-connect.nix
   ];
 }
