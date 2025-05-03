@@ -9,6 +9,10 @@
         type = lib.types.bool;
         default = false;
       };
+      asus-nmcli-fix = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+      };
       monitors = lib.mkOption {
         type = with lib.types;
           listOf (submodule {

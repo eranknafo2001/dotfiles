@@ -14,6 +14,7 @@
       enable = true;
       nvidia = false;
       battery = true;
+      asus-nmcli-fix = true;
       monitors = [
         {
           name = "eDP-1";
