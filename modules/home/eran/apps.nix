@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     ytmdesktop
-    vesktop
+    # vesktop
+    legcord
     devenv
     vdhcoapp
     nmap

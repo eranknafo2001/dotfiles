@@ -13,6 +13,7 @@
     ./shell.nix
     ./hyprland/default.nix
     ./firefox/default.nix
+    ./codex.nix
   ];
 
   home = {

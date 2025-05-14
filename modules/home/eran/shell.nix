@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [xsel wget tmux file curl dust wl-clipboard];
-  #home.file.".config/starship.toml".source = ./starship.toml;
+  xdg.configFile."fish/completions/nix.fish".source = "${pkgs.nix}/share/fish/vendor_completions.d/nix.fish";
   services.pueue.enable = true;
   programs = {
     yazi.enable = true;
