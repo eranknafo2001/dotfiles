@@ -1,9 +1,11 @@
 keys:
   - &eranlaptop age1m9nl65w43036n4uzuaagaaxl9vp86unexwge2w7vkrj2vruf059spagpgz
+  - &eranpc age13phtua9nmu0kc7puex5azksna2wvy3rf076jhqk0jyptes38wpzqxg8dfe
   - &backup age1rrwhkvuy5krs47unkwrrmvap3nvx733lup5tvlcwrgrc2ry7rdzsdp677c
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
     - age:
       - *eranlaptop
+      - *eranpc
       - *backup
