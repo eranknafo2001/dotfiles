@@ -14,5 +14,6 @@
     ./sshd.nix
     ./bluetooth.nix
     ./kde-connect.nix
+    ./sops.nix
   ];
 }

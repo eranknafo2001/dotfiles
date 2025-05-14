@@ -5,6 +5,7 @@
     ./git.nix
     ./ssh.nix
     ./tailscale.nix
+    # ./projects-cache.nix
     ./term/default.nix
     # ./nvim/default.nix
     ./nixvim/default.nix
@@ -14,6 +15,7 @@
     ./hyprland/default.nix
     ./firefox/default.nix
     ./codex.nix
+    ./sops.nix
   ];
 
   home = {

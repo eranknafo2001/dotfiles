@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   codexRepo = pkgs.fetchFromGitHub {
     owner = "openai";
     repo = "codex";
@@ -43,6 +47,11 @@
       runHook postInstall
     '';
   });
+
+  codex-wrapper = pkgs.writeShellScriptBin "codex" ''
+    OPENAI_API_KEY=$(cat ${config.sops.secrets.openai_key.path}) exec ${codex-cli}/bin/codex $@
+  '';
 in {
-  home.packages = [codex-cli];
+  home.packages = [codex-wrapper];
+  sops.secrets.openai_key = {};
 }

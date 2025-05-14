@@ -57,6 +57,11 @@
       url = "github:ghostty-org/ghostty/1.1.x";
       inputs.nixpkgs-unstable.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
