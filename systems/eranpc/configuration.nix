@@ -14,6 +14,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
+  hardware.keyboard.zsa.enable = true;
   networking.hostName = "eranpc";
 
   time.timeZone = "Asia/Jerusalem";
