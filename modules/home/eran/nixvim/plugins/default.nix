@@ -6,5 +6,6 @@
     ./edit.nix
     ./treesitter.nix
     ./utils.nix
+    ./sops.nix
   ];
 }

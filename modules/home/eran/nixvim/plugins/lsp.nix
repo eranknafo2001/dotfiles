@@ -221,6 +221,6 @@ in {
         ];
       };
     };
-    extraPackages = [pkgs.alejandra pkgs.nodePackages.prettier pkgs.prettierd pkgs.rustfmt];
+    extraPackages = with pkgs; [alejandra nodePackages.prettier prettierd rustfmt];
   };
 }
