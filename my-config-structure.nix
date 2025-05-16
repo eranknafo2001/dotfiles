@@ -33,5 +33,6 @@
     sshd.enable = lib.mkEnableOption "sshd";
     bluetooth.enable = lib.mkEnableOption "bluetooth";
     kde-connect.enable = lib.mkEnableOption "kde-connect";
+    adb.enable = lib.mkEnableOption "adb";
   };
 }
