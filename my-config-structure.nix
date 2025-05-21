@@ -13,6 +13,10 @@
         type = lib.types.bool;
         default = false;
       };
+      bar = lib.mkOption {
+        type = lib.types.enum ["waybar" "eww"];
+        default = "waybar";
+      };
       monitors = lib.mkOption {
         type = with lib.types;
           listOf (submodule {

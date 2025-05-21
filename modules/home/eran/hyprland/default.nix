@@ -10,6 +10,7 @@
 in {
   imports = [
     ./waybar/default.nix
+    ./eww/default.nix
     ./hyprpaper/default.nix
     ./hypridle.nix
     ./hyprlock.nix
@@ -77,12 +78,13 @@ in {
               sleep ${toString (60 * 5)}
             done
           '';
-        in [
-          "${pkgs.waybar}/bin/waybar"
-          "${pkgs.clipse}/bin/clipse -listen"
-          "hyprctl setcursor Bibata-Modern-Ice 24"
-          "sleep 3 && ${changeWallpaperService}/bin/changeWallpaperService"
-        ];
+        in
+          (lib.optionals (cfg.bar == "waybar") ["${pkgs.waybar}/bin/waybar"])
+          ++ [
+            "${pkgs.clipse}/bin/clipse -listen"
+            "hyprctl setcursor Bibata-Modern-Ice 24"
+            "sleep 3 && ${changeWallpaperService}/bin/changeWallpaperService"
+          ];
         env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
         general = {
           gaps_in = 5;

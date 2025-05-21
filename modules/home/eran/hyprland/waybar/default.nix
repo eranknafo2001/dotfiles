@@ -6,7 +6,7 @@
 }: let
   cfg = config.my.hyprland;
 in {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (cfg.enable && cfg.bar == "waybar") {
     home.packages = with pkgs; [font-awesome];
     programs.waybar = {
       enable = true;
