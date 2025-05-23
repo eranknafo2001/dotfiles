@@ -1,18 +1,20 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [xsel wget tmux file curl dust wl-clipboard];
+  home.packages = with pkgs; [xsel wget tmux file curl dust tokei wl-clipboard];
   xdg.configFile."fish/completions/nix.fish".source = "${pkgs.nix}/share/fish/vendor_completions.d/nix.fish";
   services.pueue.enable = true;
   programs = {
-    yazi.enable = true;
     fish = {
       enable = true;
       interactiveShellInit = ''
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
+        alias cat=bat
       '';
     };
+    yazi.enable = true;
     fd.enable = true;
     feh.enable = true;
     jq.enable = true;
+    zoxide.enable = true;
     ripgrep.enable = true;
     bat = {
       enable = true;

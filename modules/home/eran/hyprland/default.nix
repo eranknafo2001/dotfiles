@@ -38,7 +38,7 @@ in {
 
       mako = {
         enable = true;
-        defaultTimeout = 5000;
+        settings.default-timeout = 5000;
       };
 
       playerctld.enable = true;

@@ -25,7 +25,7 @@ in {
         right_mouse_command = mkRaw "function(n) Snacks.bufdelete(n) end";
         # diagnostics = "nvim_lsp";
         always_show_bufferline = false;
-        tab_size = 50;
+        # tab_size = 50;
         offsets = [
           {
             filetype = "neo-tree";
