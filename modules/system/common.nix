@@ -6,7 +6,7 @@
     pavucontrol
     htop
     unzip
-    vim
+    evil-helix
     git
   ];
 

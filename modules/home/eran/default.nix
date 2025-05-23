@@ -16,6 +16,7 @@
     ./firefox/default.nix
     ./codex.nix
     ./sops.nix
+    ./helix.nix
   ];
 
   home = {
