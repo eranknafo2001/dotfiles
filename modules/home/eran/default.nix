@@ -12,7 +12,7 @@
     ./shell.nix
     ./hyprland/default.nix
     ./firefox/default.nix
-    ./codex.nix
+    ./ai/default.nix
     ./sops.nix
     ./helix.nix
   ];

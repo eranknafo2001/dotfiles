@@ -11,6 +11,7 @@
     treesitter-context = {
       enable = true;
       lazyLoad.settings.event = "DeferredUIEnter";
+      settings.max_lines = 3;
     };
     treesitter-textobjects = {
       enable = true;
