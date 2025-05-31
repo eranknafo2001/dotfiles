@@ -10,6 +10,12 @@
         alias cat=bat
       '';
     };
+    bash.enable = true;
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
+    };
     yazi.enable = true;
     fd.enable = true;
     feh.enable = true;
