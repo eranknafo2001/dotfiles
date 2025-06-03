@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    extra-nix-packages = {
+      url = "github:eranknafo2001/extra-nix-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,10 +77,11 @@
   outputs = {
     nixpkgs,
     nur,
+    extra-nix-packages,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
   in {
     nixosConfigurations = {
       eranpc = nixpkgs.lib.nixosSystem {

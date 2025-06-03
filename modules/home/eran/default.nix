@@ -15,6 +15,7 @@
     ./ai/default.nix
     ./sops.nix
     ./helix.nix
+    ./bevy.nix
   ];
 
   home = {
