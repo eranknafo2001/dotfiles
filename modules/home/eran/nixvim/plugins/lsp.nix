@@ -10,18 +10,18 @@ in {
   programs.nixvim = {
     plugins = {
       blink-copilot = {
-        enable = true;
+        enable = false;
         lazyLoad.settings.lazy = true;
       };
       blink-cmp = {
         enable = true;
         lazyLoad.settings = {
           lazy = true;
-          before = mkRaw ''
-            function()
-              require("lz.n").trigger_load("blink-copilot")
-            end
-          '';
+          # before = mkRaw ''
+          #   function()
+          #     require("lz.n").trigger_load("blink-copilot")
+          #   end
+          # '';
         };
 
         settings = {
@@ -32,24 +32,25 @@ in {
           };
           sources = {
             providers = {
-              copilot = {
-                async = true;
-                module = "blink-copilot";
-                name = "copilot";
-                score_offset = 100;
-                opts = {
-                  max_completions = 3;
-                  max_attempts = 4;
-                  kind = "Copilot";
-                  debounce = 750;
-                  auto_refresh = {
-                    backward = true;
-                    forward = true;
-                  };
-                };
-              };
+              # copilot = {
+              #   async = true;
+              #   module = "blink-copilot";
+              #   name = "copilot";
+              #   score_offset = 100;
+              #   opts = {
+              #     max_completions = 3;
+              #     max_attempts = 4;
+              #     kind = "Copilot";
+              #     debounce = 750;
+              #     auto_refresh = {
+              #       backward = true;
+              #       forward = true;
+              #     };
+              #   };
+              # };
             };
-            default = ["lsp" "path" "buffer" "copilot"];
+            # default = ["lsp" "path" "buffer" "copilot"];
+            default = ["lsp" "path" "buffer"];
           };
         };
       };
