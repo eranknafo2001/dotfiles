@@ -6,7 +6,7 @@
     diff-so-fancy.enable = true;
     aliases = {
       co = "checkout";
-      br = "brunch";
+      br = "branch";
       st = "status";
     };
   };
