@@ -13,15 +13,19 @@ in {
         enable = false;
         lazyLoad.settings.lazy = true;
       };
+      blink-compat = {
+        enable = true;
+        lazyLoad.settings.lazy = true;
+      };
       blink-cmp = {
         enable = true;
         lazyLoad.settings = {
           lazy = true;
-          # before = mkRaw ''
-          #   function()
-          #     require("lz.n").trigger_load("blink-copilot")
-          #   end
-          # '';
+          before = mkRaw ''
+            function()
+              require("lz.n").trigger_load("blink-compat")
+            end
+          '';
         };
 
         settings = {
@@ -48,9 +52,34 @@ in {
               #     };
               #   };
               # };
+              avante_commands = {
+                name = "avante_commands";
+                module = "blink.compat.source";
+                score_offset = 90;
+                opts = {};
+              };
+              avante_files = {
+                name = "avante_files";
+                module = "blink.compat.source";
+                score_offset = 100;
+                opts = {};
+              };
+              avante_mentions = {
+                name = "avante_mentions";
+                module = "blink.compat.source";
+                score_offset = 1000;
+                opts = {};
+              };
             };
             # default = ["lsp" "path" "buffer" "copilot"];
-            default = ["lsp" "path" "buffer"];
+            default = [
+              "lsp"
+              "path"
+              "buffer"
+              "avante_commands"
+              "avante_mentions"
+              "avante_files"
+            ];
           };
         };
       };
