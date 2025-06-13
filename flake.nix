@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvim = {
+      url = "github:eranknafo2001/nvim-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,11 +53,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,31 +78,40 @@
     nixpkgs,
     nur,
     extra-nix-packages,
+    home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
+    lib = nixpkgs.lib.extend (_final: _prev: (import ./lib/default.nix {inherit pkgs;}));
+    libHomeManager = lib.extend (_final: _prev: home-manager.lib);
   in {
     nixosConfigurations = {
       eranpc = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit system inputs;};
+        specialArgs = {inherit system inputs lib;};
         modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranpc/configuration.nix ./systems/eranpc/my-conf.nix];
       };
       eranlaptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit system inputs;};
+        specialArgs = {inherit system inputs lib;};
         modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranlaptop/configuration.nix ./systems/eranlaptop/my-conf.nix];
       };
     };
 
     homeConfigurations = {
-      "eran@eranpc" = inputs.home-manager.lib.homeManagerConfiguration {
+      "eran@eranpc" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit system inputs;};
+        extraSpecialArgs = {
+          inherit system inputs;
+          lib = libHomeManager;
+        };
         modules = [./my-config-structure.nix ./systems/eranpc/my-conf.nix ./modules/home/eran/default.nix];
       };
-      "eran@eranlaptop" = inputs.home-manager.lib.homeManagerConfiguration {
+      "eran@eranlaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit system inputs;};
+        extraSpecialArgs = {
+          inherit system inputs;
+          lib = libHomeManager;
+        };
         modules = [./my-config-structure.nix ./systems/eranlaptop/my-conf.nix ./modules/home/eran/default.nix];
       };
     };

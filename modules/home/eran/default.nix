@@ -7,7 +7,7 @@
     ./tailscale.nix
     # ./projects-cache.nix
     ./term/default.nix
-    ./nixvim/default.nix
+    ./nixvim.nix
     ./vscode.nix
     ./shell.nix
     ./hyprland/default.nix
