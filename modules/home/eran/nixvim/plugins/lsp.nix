@@ -9,26 +9,26 @@
 in {
   programs.nixvim = {
     plugins = {
-      blink-copilot = {
-        enable = false;
-        lazyLoad.settings.lazy = true;
-      };
       blink-compat = {
         enable = true;
-        lazyLoad.settings.lazy = true;
+        lazyLoad.settings.lazy = false;
       };
       blink-cmp = {
         enable = true;
         lazyLoad.settings = {
           lazy = true;
-          before = mkRaw ''
+          # before = mkRaw ''
+          #   function()
+          #     require("lz.n").trigger_load("blink-compat")
+          #   end
+          # '';
+        };
+        settings = {
+          enabled = mkRaw ''
             function()
-              require("lz.n").trigger_load("blink-compat")
+              return not vim.tbl_contains({ "DressingInput", "DressingSelect" }, vim.bo.filetype)
             end
           '';
-        };
-
-        settings = {
           keymap = {
             preset = "enter";
             "<C-k>" = ["select_prev" "fallback"];
@@ -36,22 +36,6 @@ in {
           };
           sources = {
             providers = {
-              # copilot = {
-              #   async = true;
-              #   module = "blink-copilot";
-              #   name = "copilot";
-              #   score_offset = 100;
-              #   opts = {
-              #     max_completions = 3;
-              #     max_attempts = 4;
-              #     kind = "Copilot";
-              #     debounce = 750;
-              #     auto_refresh = {
-              #       backward = true;
-              #       forward = true;
-              #     };
-              #   };
-              # };
               avante_commands = {
                 name = "avante_commands";
                 module = "blink.compat.source";
@@ -71,7 +55,6 @@ in {
                 opts = {};
               };
             };
-            # default = ["lsp" "path" "buffer" "copilot"];
             default = [
               "lsp"
               "path"
