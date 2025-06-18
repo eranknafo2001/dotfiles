@@ -131,11 +131,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748890012,
-        "narHash": "sha256-Qkk4FDLzJpaB4q+sDgkQ/jVsyzgYaY2ZUmm7MQ71iY4=",
+        "lastModified": 1750290576,
+        "narHash": "sha256-TBj8cQhf+ju0Kfg7o8kA+WbH+xpcX2AuQZXwP4e7YTs=",
         "owner": "eranknafo2001",
         "repo": "extra-nix-packages",
-        "rev": "f9873936748fd2599e5a8ee2debd6a8965c6ff05",
+        "rev": "44d5900dc50b3a7d402d4f80afef252ba40d8caf",
         "type": "github"
       },
       "original": {
@@ -1228,6 +1228,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1749871736,
+        "narHash": "sha256-K9yBph93OLTNw02Q6e9CYFGrUhvEXnh45vrZqIRWfvQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "6afe187897bef7933475e6af374c893f4c84a293",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -1328,17 +1344,15 @@
         "flake-parts": "flake-parts_3",
         "mcp-hub": "mcp-hub",
         "mcphub-nvim": "mcphub-nvim",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1750012649,
-        "narHash": "sha256-wdoFFL/G7/Ksg+88PP0TAm1hoJbIM6eovxjQ1PO7apM=",
+        "lastModified": 1750103605,
+        "narHash": "sha256-QuwszNOJk2xvjSmhlWo7gYErVVRTAmsiMH8ZiwI/K7M=",
         "owner": "eranknafo2001",
         "repo": "nvim-config",
-        "rev": "03b6763b2058b8a221b182c8be876df297faf796",
+        "rev": "d1d2f1f56f07139b333a1be4c30837f4147b2fb6",
         "type": "github"
       },
       "original": {
