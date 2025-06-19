@@ -28,4 +28,7 @@ in {
     tavily_key = {};
   };
   home.packages = [nvim-wrapper];
+  home.sessionVariables = {
+    EDITOR = "${nvim-wrapper}/bin/nvim";
+  };
 }
