@@ -11,7 +11,7 @@
 
     nvim = {
       url = "github:eranknafo2001/nvim-config";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nur = {
