@@ -26,5 +26,6 @@
         }
       ];
     };
+    nix-ld.enable = true;
   };
 }

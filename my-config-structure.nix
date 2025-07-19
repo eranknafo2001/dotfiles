@@ -38,5 +38,6 @@
     bluetooth.enable = lib.mkEnableOption "bluetooth";
     kde-connect.enable = lib.mkEnableOption "kde-connect";
     adb.enable = lib.mkEnableOption "adb";
+    nix-ld.enable = lib.mkEnableOption "nix-ld";
   };
 }
