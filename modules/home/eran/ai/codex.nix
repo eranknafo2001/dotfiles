@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  codex-wrapper = lib.mkSecretWrapper pkgs.codex-cli [
+  codex-wrapper = lib.mkSecretWrapper pkgs.codex [
     {
       name = "OPENAI_API_KEY";
       inherit (config.sops.secrets.openai_key) path;
