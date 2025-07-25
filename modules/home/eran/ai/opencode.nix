@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  codex-wrapper = lib.mkSecretWrapper pkgs.codex [
+  opencode-wrapper = lib.mkSecretWrapper pkgs.sst-opencode-ai [
     {
       name = "OPENROUTER_API_KEY";
       inherit (config.sops.secrets.openrouter_key) path;
@@ -19,8 +19,9 @@
     }
   ];
 in {
-  home.packages = [codex-wrapper];
+  home.packages = [opencode-wrapper];
   sops.secrets = {
+    openrouter_key = {};
     openai_key = {};
     gemini_key = {};
   };

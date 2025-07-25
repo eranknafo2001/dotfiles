@@ -131,11 +131,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750290576,
-        "narHash": "sha256-TBj8cQhf+ju0Kfg7o8kA+WbH+xpcX2AuQZXwP4e7YTs=",
+        "lastModified": 1753465618,
+        "narHash": "sha256-s2vR4XZN5w8Jv8UdqSGqc1lZQEqSMX//fIc8t8k5ZEw=",
         "owner": "eranknafo2001",
         "repo": "extra-nix-packages",
-        "rev": "44d5900dc50b3a7d402d4f80afef252ba40d8caf",
+        "rev": "c7c5c32ddfcd3e5586c267b2f5053d50978055b5",
         "type": "github"
       },
       "original": {
