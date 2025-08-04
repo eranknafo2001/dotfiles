@@ -20,6 +20,7 @@
   ];
 in {
   home.packages = [opencode-wrapper];
+  xdg.configFile."opencode/opencode.json".source = ./opencode.json;
   sops.secrets = {
     openrouter_key = {};
     openai_key = {};
