@@ -72,6 +72,11 @@
       url = "github:elkowar/eww/v0.6.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zed = {
+      url = "github:zed-industries/zed";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -79,10 +84,19 @@
     nur,
     extra-nix-packages,
     home-manager,
+    zed,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [
+        extra-nix-packages.overlays.${system}.default
+        nur.overlays.default
+        zed.overlays.default
+      ];
+    };
+    # pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
     lib = nixpkgs.lib.extend (_final: _prev: (import ./lib/default.nix {inherit pkgs;}));
     libHomeManager = lib.extend (_final: _prev: home-manager.lib);
   in {

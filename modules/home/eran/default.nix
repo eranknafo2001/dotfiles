@@ -5,7 +5,6 @@
     ./git.nix
     ./ssh.nix
     ./tailscale.nix
-    # ./projects-cache.nix
     ./term/default.nix
     ./nixvim.nix
     ./vscode.nix
@@ -16,6 +15,7 @@
     ./sops.nix
     ./helix.nix
     ./bevy.nix
+    ./zed.nix
   ];
 
   home = {
@@ -25,5 +25,8 @@
   };
 
   programs.home-manager.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfreePredicate = _: true;
+    allowUnfree = true;
+  };
 }

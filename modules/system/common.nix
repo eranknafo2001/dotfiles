@@ -70,5 +70,11 @@
     magicOrExtension = "\\x7fELF....AI\\x02";
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    flake.setFlakeRegistry = true;
+    config = {
+      allowUnfreePredicate = _: true;
+      allowUnfree = true;
+    };
+  };
 }

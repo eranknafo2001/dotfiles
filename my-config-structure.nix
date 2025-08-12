@@ -39,5 +39,7 @@
     kde-connect.enable = lib.mkEnableOption "kde-connect";
     adb.enable = lib.mkEnableOption "adb";
     nix-ld.enable = lib.mkEnableOption "nix-ld";
+    vscode.enable = lib.mkEnableOption "vscode";
+    zed.enable = lib.mkEnableOption "zed";
   };
 }

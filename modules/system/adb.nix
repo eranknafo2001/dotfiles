@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -7,5 +8,8 @@
 in {
   config = lib.mkIf cfg.enable {
     programs.adb.enable = true;
+    services.udev.packages = [
+      pkgs.android-udev-rules
+    ];
   };
 }
