@@ -61,6 +61,7 @@ in {
         package = pkgs.adwaita-icon-theme;
       };
     };
+
     qt = {
       enable = true;
       platformTheme.name = "gtk";

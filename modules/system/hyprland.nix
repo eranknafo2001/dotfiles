@@ -15,8 +15,13 @@ in {
         inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     };
 
-    xdg.portal.enable = true;
-    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    xdg.portal = {
+      enable = true;
+      wlr.enable = false;
+    };
+    services.dbus.enable = true;
+
+    services.gnome.gnome-keyring.enable = true;
 
     programs.nm-applet.enable = true;
 
@@ -49,5 +54,6 @@ in {
         };
       };
     };
+    security.pam.services.greetd.enableGnomeKeyring = true;
   };
 }
