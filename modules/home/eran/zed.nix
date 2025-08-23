@@ -96,9 +96,8 @@ in {
         agent = {
           always_allow_tool_actions = true;
           default_model = {
-            provider = "openrouter";
-            # model = "openai/gpt-5";
-            model = "anthropic/claude-sonnet-4";
+            provider = "zed.dev";
+            model = "claude-sonnet-4-thinking";
           };
         };
         vim = {
