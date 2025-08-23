@@ -28,6 +28,7 @@ in {
     programs.zed-editor = {
       enable = true;
       extensions = [
+        "html"
         "nix"
         "mcp-server-context7"
         "dockerfile"
@@ -64,10 +65,16 @@ in {
         "ssh-config"
         "gitlab-ci-ls"
         "caddyfile"
+        "mcp-server-sequential-thinking"
       ];
       userSettings = {
         vim_mode = true;
         auto_update = false;
+        theme = {
+          mode = "dark";
+          dark = "Tokyo Night";
+          light = "Tokyo Night";
+        };
         terminal = {
           copy_on_select = false;
           shell.program = "fish";
@@ -77,12 +84,15 @@ in {
         lsp = {
           nixd.binary.path = "${pkgs.nixd}/bin/nixd";
           nil.binary.path = "${pkgs.nil}/bin/nil";
+          gitlab-ci.binary.path = "${pkgs.gitlab-ci-ls}/bin/gitlab-ci-ls";
+          elixir-ls.binary.path = "${pkgs.elixir-ls}/bin/elixir-ls";
         };
         languages = {
           Nix.formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
         };
-        load_direnv = "shell_hook";
+        load_direnv = "direct";
         show_whitespaces = "selection";
+        features.edit_prediction_provider = "supermaven";
         agent = {
           always_allow_tool_actions = true;
           default_model = {
@@ -91,7 +101,60 @@ in {
             model = "anthropic/claude-sonnet-4";
           };
         };
+        vim = {
+          use_smartcase_find = true;
+          toggle_relative_line_numbers = true;
+          use_system_clipboard = "never";
+        };
+        command_aliases = {
+          "W" = "w";
+          "Wq" = "wq";
+          "Q" = "q";
+        };
       };
+      userKeymaps = [
+        {
+          context = "VimControl || !Editor && !Terminal";
+          bindings = {
+            "ctrl-h" = "workspace::ActivatePaneLeft";
+            "ctrl-l" = "workspace::ActivatePaneRight";
+            "ctrl-k" = "workspace::ActivatePaneUp";
+            "ctrl-j" = "workspace::ActivatePaneDown";
+          };
+        }
+        {
+          context = "Dock";
+          bindings = {
+            "ctrl-h" = "workspace::ActivatePaneLeft";
+            "ctrl-l" = "workspace::ActivatePaneRight";
+            "ctrl-k" = "workspace::ActivatePaneUp";
+            "ctrl-j" = "workspace::ActivatePaneDown";
+          };
+        }
+        {
+          context = "vim_mode == visual";
+          bindings = {
+            "s" = ["vim::PushAddSurrounds" {}];
+          };
+        }
+        {
+          context = "Editor && vim_mode == normal";
+          bindings = {
+            "shift-l" = "pane::ActivateNextItem";
+            "shift-h" = "pane::ActivatePreviousItem";
+            "space e" = "project_panel::ToggleFocus";
+            "space P" = ["workspace::SendKeystrokes" "\" + P"];
+            "space Y" = ["workspace::SendKeystrokes" "\" + Y"];
+          };
+        }
+        {
+          context = "Editor && (vim_mode == visual || vim_mode == visual_line || vim_mode == visual_block || vim_mode == normal)";
+          bindings = {
+            "space p" = ["workspace::SendKeystrokes" "\" + p"];
+            "space y" = ["workspace::SendKeystrokes" "\" + y"];
+          };
+        }
+      ];
       package = zed-editor;
     };
 

@@ -10,6 +10,7 @@
       hyprpaper.enable = lib.mkForce false;
       hyprlock.enable = lib.mkForce false;
       vim.enable = false;
+      zed.enable = false;
       vscode.profileNames = ["default"];
     };
     opacity = {terminal = 0.8;};
