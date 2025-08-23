@@ -14,6 +14,7 @@ in {
         inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
       settings = let
         text_color = "rgba(FFFFFFFF)";
+        discrete_color = "rgba(AAAAAA88)";
         entry_background_color = "rgba(33333311)";
         entry_border_color = "rgba(3B3B3B55)";
         entry_color = "rgba(FFFFFFFF)";
@@ -62,6 +63,19 @@ in {
             position = "0, 240";
             halign = "center";
             valign = "center";
+          }
+          {
+            # Language indicator
+            monitor = "";
+            text = "$LAYOUT";
+            shadow_passes = 1;
+            shadow_boost = 0.5;
+            color = discrete_color;
+            font_size = 12;
+            font_family = font_family;
+            position = "20, -20";
+            halign = "left";
+            valign = "top";
           }
           {
             # lock icon
