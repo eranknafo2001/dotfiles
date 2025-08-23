@@ -6,7 +6,6 @@
   ...
 }: let
   cfg = config.my.hyprland;
-  ghostty = inputs.ghostty.packages.x86_64-linux.default;
 in {
   imports = [
     ./waybar/default.nix
@@ -167,7 +166,7 @@ in {
         "$mod" = "SUPER";
         bind = [
           # "$mod, Return, exec, ${pkgs.kitty}/bin/kitty"
-          "$mod, Return, exec, ${ghostty}/bin/ghostty"
+          "$mod, Return, exec, ${pkgs.ghostty}/bin/ghostty"
           "$mod SHIFT, C, killactive,"
           "$mod SHIFT, X, exit,"
           "$mod, E, exec, $fileManager"
@@ -218,7 +217,7 @@ in {
           "$mod, S, togglespecialworkspace, magic"
           "$mod SHIFT, S, movetoworkspace, special:magic"
 
-          "$mod, V, exec, ${ghostty}/bin/ghostty --class=\"ghostty.clipse\" --background-opacity=1 -e ${pkgs.clipse}/bin/clipse"
+          "$mod, V, exec, ${pkgs.ghostty}/bin/ghostty --class=\"ghostty.clipse\" --background-opacity=1 -e ${pkgs.clipse}/bin/clipse"
 
           # Scroll through existing workspaces with mainMod + scroll
           "$mod, mouse_down, workspace, e+1"

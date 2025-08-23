@@ -6,7 +6,10 @@ pkgs.symlinkJoin {
   postBuild = ''
     for bin in $out/bin/*; do
       wrapProgram "$bin" ${builtins.concatStringsSep " " (map (
-        secretVar: ''--run 'export ${secretVar.name}="$(cat ${secretVar.path})"' ''
+        {
+          name,
+          path,
+        }: ''--run 'export ${name}="$(cat ${path})"' ''
       )
       secretVars)}
     done
