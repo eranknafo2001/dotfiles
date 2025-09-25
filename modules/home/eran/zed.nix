@@ -92,7 +92,12 @@ in {
         };
         load_direnv = "direct";
         show_whitespaces = "selection";
-        features.edit_prediction_provider = "supermaven";
+        context_servers = {
+          mcp-server-context7 = {
+            source = "extension";
+            enabled = true;
+          };
+        };
         agent = {
           always_allow_tool_actions = true;
           default_model = {
