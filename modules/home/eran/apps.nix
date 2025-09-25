@@ -10,7 +10,7 @@
     google-chrome
     pcmanfm
     bitwarden-desktop
-    stremio
+    # stremio
     prusa-slicer
     #kicad
     #rustdesk

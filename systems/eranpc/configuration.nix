@@ -4,6 +4,7 @@
   ...
 }: {
   imports = [./hardware-configuration.nix ../../modules/system/default.nix];
+
   # nixpkgs.config.allowUnfree = true;
 
   boot.loader.systemd-boot.enable = false;

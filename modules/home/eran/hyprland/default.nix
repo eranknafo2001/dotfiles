@@ -13,12 +13,13 @@ in {
     ./hyprpaper/default.nix
     ./hypridle.nix
     ./hyprlock.nix
+    ./hyprsunset.nix
   ];
 
   config = lib.mkIf cfg.enable {
     programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
     };
 
     fonts.fontconfig.enable = true;
@@ -155,10 +156,10 @@ in {
             scroll_factor = 0.8;
           };
         };
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_cancel_ratio = 0.3;
-        };
+        gesture = [
+          "3, horizontal, workspace"
+          "4, swipe, move"
+        ];
         workspace =
           lib.lists.imap1
           (i: monitor: "${toString i}, monitor:${monitor.name}, default:true")
@@ -173,7 +174,7 @@ in {
           "$mod, F, fullscreen,2"
           "$mod, G, fullscreen,1"
           "$mod SHIFT, F, togglefloating,"
-          "$mod, R, exec, ${pkgs.rofi-wayland}/bin/rofi -show drun"
+          "$mod, R, exec, ${pkgs.rofi}/bin/rofi -show drun"
           "$mod, escape, exec, hyprlock"
           "$mod, P, pseudo,"
           "$mod, M, togglesplit,"
