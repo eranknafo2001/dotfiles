@@ -41,5 +41,6 @@
     nix-ld.enable = lib.mkEnableOption "nix-ld";
     vscode.enable = lib.mkEnableOption "vscode";
     zed.enable = lib.mkEnableOption "zed";
+    star-citizen.enable = lib.mkEnableOption "star-citizen";
   };
 }

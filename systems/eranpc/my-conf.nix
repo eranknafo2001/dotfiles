@@ -1,9 +1,10 @@
-{...}: {
+_: {
   my = {
+    star-citizen.enable = true;
     gaming.enable = true;
     docker.enable = true;
     mpd.enable = true;
-    solaar.enable = true;
+    solaar.enable = false;
     rustdesk.enable = false;
     suwayomi.enable = false;
     tailscale.enable = true;

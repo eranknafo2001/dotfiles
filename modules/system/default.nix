@@ -16,5 +16,6 @@
     ./kde-connect.nix
     ./sops.nix
     ./nix-ld.nix
+    ./star-citizen.nix
   ];
 }
