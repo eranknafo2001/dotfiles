@@ -28,5 +28,6 @@ _: {
       ];
     };
     nix-ld.enable = true;
+    zed.enable = true;
   };
 }

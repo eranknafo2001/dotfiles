@@ -78,7 +78,7 @@ in {
         terminal = {
           copy_on_select = false;
           shell.program = "fish";
-          toolbar.title = true;
+          # toolbar.title = true;
           working_directory = "current_project_directory";
         };
         lsp = {
@@ -87,17 +87,17 @@ in {
           gitlab-ci.binary.path = "${pkgs.gitlab-ci-ls}/bin/gitlab-ci-ls";
           elixir-ls.binary.path = "${pkgs.elixir-ls}/bin/elixir-ls";
         };
-        languages = {
-          Nix.formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
-        };
+        # languages = {
+        #   Nix.formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
+        # };
         load_direnv = "direct";
         show_whitespaces = "selection";
-        context_servers = {
-          mcp-server-context7 = {
-            source = "extension";
-            enabled = true;
-          };
-        };
+        # context_servers = {
+        #   mcp-server-context7 = {
+        #     source = "extension";
+        #     enabled = true;
+        #   };
+        # };
         agent = {
           always_allow_tool_actions = true;
           default_model = {
