@@ -10,7 +10,7 @@
     sshd.enable = false;
     bluetooth.enable = true;
     kde-connect.enable = true;
-    adb.enable = true;
+    adb.enable = false;
     hyprland = {
       enable = true;
       nvidia = false;

@@ -68,7 +68,5 @@
 
   time.timeZone = "Asia/Jerusalem";
 
-  services.udev.packages = [pkgs.android-udev-rules];
-
   system.stateVersion = "24.05";
 }

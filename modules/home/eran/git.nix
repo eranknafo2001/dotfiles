@@ -1,13 +1,15 @@
 {...}: {
+  programs.diff-so-fancy.enable = true;
   programs.git = {
     enable = true;
-    userName = "Eran Knafo";
-    userEmail = "eranknafo2001@gmail.com";
-    diff-so-fancy.enable = true;
-    aliases = {
-      co = "checkout";
-      br = "branch";
-      st = "status";
+    settings = {
+      user.name = "Eran Knafo";
+      user.email = "eranknafo2001@gmail.com";
+      aliases = {
+        co = "checkout";
+        br = "branch";
+        st = "status";
+      };
     };
   };
 }
