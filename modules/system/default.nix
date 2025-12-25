@@ -1,5 +1,6 @@
 {...}: {
   imports = [
+    ./adb.nix
     ./gaming.nix
     ./common.nix
     ./hyprland.nix

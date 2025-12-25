@@ -2,7 +2,7 @@
   my = {
     gaming.enable = false;
     docker.enable = true;
-    mpd.enable = false;
+    mpd.enable = true;
     solaar.enable = false;
     rustdesk.enable = false;
     suwayomi.enable = false;
@@ -10,7 +10,7 @@
     sshd.enable = false;
     bluetooth.enable = true;
     kde-connect.enable = true;
-    adb.enable = false;
+    adb.enable = true;
     hyprland = {
       enable = true;
       nvidia = false;
