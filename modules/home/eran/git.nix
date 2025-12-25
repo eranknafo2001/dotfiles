@@ -5,7 +5,7 @@
     settings = {
       user.name = "Eran Knafo";
       user.email = "eranknafo2001@gmail.com";
-      aliases = {
+      alias = {
         co = "checkout";
         br = "branch";
         st = "status";
