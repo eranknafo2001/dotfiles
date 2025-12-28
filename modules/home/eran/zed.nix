@@ -101,8 +101,14 @@ in {
         agent = {
           always_allow_tool_actions = true;
           default_model = {
-            provider = "zed.dev";
-            model = "claude-sonnet-4-thinking";
+            provider = "openrouter";
+            model = "anthropic/claude-opus-4";
+          };
+          inline_assistant = {
+            default_model = {
+              provider = "openrouter";
+              model = "z-ai/glm-4.7";
+            };
           };
         };
         vim = {

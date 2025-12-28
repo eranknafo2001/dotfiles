@@ -5,6 +5,16 @@
   ...
 }: {
   imports = [inputs.stylix.homeModules.stylix ../../common/stylix.nix];
+
+  # CJK (Chinese, Japanese, Korean) font support
+  home.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+  ];
+
+  # Enable fontconfig for proper font fallback
+  fonts.fontconfig.enable = true;
+
   stylix = {
     targets = {
       hyprpaper.enable = lib.mkForce false;

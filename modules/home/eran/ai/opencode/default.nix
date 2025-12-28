@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  opencode-wrapper = lib.mkSecretWrapper pkgs.sst-opencode-ai [
+  opencode-wrapper = lib.mkSecretWrapper pkgs.opencode [
     {
       name = "OPENROUTER_API_KEY";
       inherit (config.sops.secrets.openrouter_key) path;
@@ -20,7 +20,18 @@
   ];
 in {
   home.packages = [opencode-wrapper];
-  xdg.configFile."opencode/opencode.json".source = ./opencode.json;
+  xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
+    "$schema" = "https://opencode.ai/config.json";
+    autoupdate = true;
+    tui.scroll_speed = 0.7;
+    mcp = {
+      context7 = {
+        type = "remote";
+        url = "https://mcp.context7.com/mcp";
+        enabled = true;
+      };
+    };
+  };
   sops.secrets = {
     openrouter_key = {};
     openai_key = {};
