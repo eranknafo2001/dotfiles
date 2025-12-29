@@ -1,5 +1,6 @@
 {...}: {
   my = {
+    automount.enable = true;
     gaming.enable = false;
     docker.enable = true;
     mpd.enable = true;
@@ -11,6 +12,8 @@
     bluetooth.enable = true;
     kde-connect.enable = true;
     adb.enable = true;
+    opencode.enable = true;
+    btca.enable = true;
     hyprland = {
       enable = true;
       nvidia = false;

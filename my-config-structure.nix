@@ -42,5 +42,8 @@
     vscode.enable = lib.mkEnableOption "vscode";
     zed.enable = lib.mkEnableOption "zed";
     star-citizen.enable = lib.mkEnableOption "star-citizen";
+    automount.enable = lib.mkEnableOption "automount";
+    opencode.enable = lib.mkEnableOption "opencode";
+    btca.enable = lib.mkEnableOption "btca";
   };
 }

@@ -2,9 +2,12 @@
   pkgs,
   config,
   lib,
+  inputs,
+  system,
   ...
 }: let
-  opencode-wrapper = lib.mkSecretWrapper pkgs.opencode [
+  cfg = config.my.opencode;
+  opencode-wrapper = lib.mkSecretWrapper inputs.opencode.packages.${system}.default [
     {
       name = "OPENROUTER_API_KEY";
       inherit (config.sops.secrets.openrouter_key) path;
@@ -19,22 +22,25 @@
     }
   ];
 in {
-  home.packages = [opencode-wrapper];
-  xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
-    "$schema" = "https://opencode.ai/config.json";
-    autoupdate = true;
-    tui.scroll_speed = 0.7;
-    mcp = {
-      context7 = {
-        type = "remote";
-        url = "https://mcp.context7.com/mcp";
-        enabled = true;
+  config = lib.mkIf cfg.enable {
+    home.packages = [opencode-wrapper];
+    xdg.configFile."opencode/opencode.json".text = builtins.toJSON {
+      "$schema" = "https://opencode.ai/config.json";
+      default_agent = "plan";
+      autoupdate = false;
+      tui.scroll_speed = 0.7;
+      mcp = {
+        context7 = {
+          type = "remote";
+          url = "https://mcp.context7.com/mcp";
+          enabled = true;
+        };
       };
     };
-  };
-  sops.secrets = {
-    openrouter_key = {};
-    openai_key = {};
-    gemini_key = {};
+    sops.secrets = {
+      openrouter_key = {};
+      openai_key = {};
+      gemini_key = {};
+    };
   };
 }

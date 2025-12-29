@@ -4,5 +4,6 @@
     ./codex.nix
     ./opencode
     ./gemini.nix
+    ./btca.nix
   ];
 }

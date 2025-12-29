@@ -16,6 +16,7 @@
     ./helix.nix
     ./bevy.nix
     ./zed.nix
+    ./automount.nix
   ];
 
   home = {

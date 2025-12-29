@@ -1,5 +1,6 @@
 _: {
   my = {
+    automount.enable = true;
     star-citizen.enable = true;
     gaming.enable = true;
     docker.enable = true;
@@ -9,6 +10,7 @@ _: {
     suwayomi.enable = false;
     tailscale.enable = true;
     sshd.enable = true;
+    opencode.enable = true;
     hyprland = {
       enable = true;
       nvidia = true;
