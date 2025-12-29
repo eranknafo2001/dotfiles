@@ -224,8 +224,12 @@ in {
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
 
-          '', Print, exec, ${pkgs.grim}/bin/grim - | wl-copy''
-          ''SHIFT, Print, exec, ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | wl-copy''
+          # Screenshots - save to file + copy image to clipboard
+          '', Print, exec, mkdir -p ~/Pictures/Screenshots && F=~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png && ${pkgs.grim}/bin/grim $F && ${pkgs.wl-clipboard}/bin/wl-copy < $F''
+          ''SHIFT, Print, exec, mkdir -p ~/Pictures/Screenshots && F=~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $F && ${pkgs.wl-clipboard}/bin/wl-copy < $F''
+          # Screenshots - save to file + copy path to clipboard (for opencode)
+          ''CTRL, Print, exec, mkdir -p ~/Pictures/Screenshots && F=~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png && ${pkgs.grim}/bin/grim $F && echo -n $F | ${pkgs.wl-clipboard}/bin/wl-copy''
+          ''CTRL SHIFT, Print, exec, mkdir -p ~/Pictures/Screenshots && F=~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png && ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $F && echo -n $F | ${pkgs.wl-clipboard}/bin/wl-copy''
         ];
         bindl = [
           ",XF86AudioMicMute, exec, ${pkgs.avizo}/bin/volumectl -m toggle-mute"
