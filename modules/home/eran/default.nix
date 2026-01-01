@@ -17,6 +17,8 @@
     ./bevy.nix
     ./zed.nix
     ./automount.nix
+    ./vr.nix
+    ./obs.nix
   ];
 
   home = {

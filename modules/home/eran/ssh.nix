@@ -1,7 +1,7 @@
 {...}: {
   programs.ssh = {
     enable = true;
-    enableDefaultConfig = true;
+    enableDefaultConfig = false;
     # matchBlocks.eranpc.proxyCommand = "fish";
   };
 }

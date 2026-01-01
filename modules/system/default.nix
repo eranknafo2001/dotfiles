@@ -19,5 +19,6 @@
     ./nix-ld.nix
     ./star-citizen.nix
     ./automount.nix
+    ./vr.nix
   ];
 }

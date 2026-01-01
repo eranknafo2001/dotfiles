@@ -74,6 +74,11 @@
 
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+
+    wivrn = {
+      url = "github:eranknafo2001/WiVRn/fix/on-v25.12";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
