@@ -1,5 +1,7 @@
 {lib, ...}: {
   options.my = {
+    obs.enable = lib.mkEnableOption "obs";
+    vr.enable = lib.mkEnableOption "vr";
     gaming.enable = lib.mkEnableOption "gaming";
     docker.enable = lib.mkEnableOption "docker";
     hyprland = {

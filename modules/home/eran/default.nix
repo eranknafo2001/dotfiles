@@ -16,6 +16,8 @@
     ./helix.nix
     ./bevy.nix
     ./zed.nix
+    ./vr.nix
+    ./obs.nix
   ];
 
   home = {

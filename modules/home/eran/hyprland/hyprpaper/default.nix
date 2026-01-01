@@ -20,6 +20,12 @@ in {
       enable = true;
       settings = {
         ipc = true;
+        wallpaper =
+          (lib.map (monitor: {
+            monitor = monitor.name;
+            path = "${./wallpapers}/1.jpg";
+          mode = "cover";
+          }) cfg.monitors  );
         preload =
           builtins.map (name: "${./wallpapers}/${name}")
           (builtins.attrNames (builtins.readDir ./wallpapers));

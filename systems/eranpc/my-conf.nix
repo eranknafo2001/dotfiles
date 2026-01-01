@@ -1,6 +1,8 @@
 _: {
   my = {
-    star-citizen.enable = true;
+    obs.enable = true;
+    vr.enable = true;
+    star-citizen.enable = false;
     gaming.enable = true;
     docker.enable = true;
     mpd.enable = true;

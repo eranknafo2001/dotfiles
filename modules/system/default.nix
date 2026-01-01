@@ -18,5 +18,6 @@
     ./sops.nix
     ./nix-ld.nix
     ./star-citizen.nix
+    ./vr.nix
   ];
 }
