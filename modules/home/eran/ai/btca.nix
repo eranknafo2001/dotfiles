@@ -16,25 +16,13 @@ in {
     ];
 
     home.packages = [pkgs.btca];
-
     xdg.configFile."btca/btca.json".text = builtins.toJSON {
       reposDirectory = "~/.local/share/btca/repos";
       port = 3420;
       maxInstances = 5;
-      repos = [
-        {
-          name = "iced";
-          url = "https://github.com/iced-rs/iced";
-          branch = "master";
-        }
-        {
-          name = "svelte";
-          url = "https://github.com/sveltejs/svelte.dev";
-          branch = "main";
-        }
-      ];
       model = "big-pickle";
       provider = "opencode";
+      inherit (cfg) repos;
     };
   };
 }

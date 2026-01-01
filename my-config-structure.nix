@@ -44,6 +44,22 @@
     star-citizen.enable = lib.mkEnableOption "star-citizen";
     automount.enable = lib.mkEnableOption "automount";
     opencode.enable = lib.mkEnableOption "opencode";
-    btca.enable = lib.mkEnableOption "btca";
+    btca = {
+      enable = lib.mkEnableOption "btca";
+      repos = lib.mkOption {
+        type = with lib.types;
+          listOf (submodule {
+            options = {
+              name = lib.mkOption {type = str;};
+              url = lib.mkOption {type = str;};
+              branch = lib.mkOption {
+                type = str;
+                default = "main";
+              };
+              specialNotes = lib.mkOption {type = str;};
+            };
+          });
+      };
+    };
   };
 }

@@ -98,11 +98,11 @@
     nixosConfigurations = {
       eranpc = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit system inputs lib;};
-        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranpc/configuration.nix ./systems/eranpc/my-conf.nix];
+        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranpc/configuration.nix ./systems/eranpc/my-conf.nix ./systems/common-conf.nix];
       };
       eranlaptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit system inputs lib;};
-        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranlaptop/configuration.nix ./systems/eranlaptop/my-conf.nix];
+        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranlaptop/configuration.nix ./systems/eranlaptop/my-conf.nix ./systems/common-conf.nix];
       };
     };
 
@@ -113,7 +113,7 @@
           inherit system inputs;
           lib = libHomeManager;
         };
-        modules = [./my-config-structure.nix ./systems/eranpc/my-conf.nix ./modules/home/eran/default.nix];
+        modules = [./my-config-structure.nix ./systems/eranpc/my-conf.nix ./modules/home/eran/default.nix ./systems/common-conf.nix];
       };
       "eran@eranlaptop" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -121,7 +121,7 @@
           inherit system inputs;
           lib = libHomeManager;
         };
-        modules = [./my-config-structure.nix ./systems/eranlaptop/my-conf.nix ./modules/home/eran/default.nix];
+        modules = [./my-config-structure.nix ./systems/eranlaptop/my-conf.nix ./modules/home/eran/default.nix ./systems/common-conf.nix];
       };
     };
   };
