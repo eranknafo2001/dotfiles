@@ -2,6 +2,8 @@
   pkgs,
   lib,
   config,
+  inputs,
+  system,
   ...
 }: let
   cfg = config.my.hyprland;
@@ -18,6 +20,7 @@ in {
 
     services.hyprpaper = {
       enable = true;
+      package = inputs.hyprpaper.packages.${system}.default;
       settings = {
         ipc = true;
         wallpaper =
