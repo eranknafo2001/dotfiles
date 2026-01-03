@@ -7,11 +7,17 @@
   cfg = config.my.hyprland;
   changeWallpaper =
     pkgs.writeShellScriptBin "changeWallpaper"
-    (lib.strings.concatMapStringsSep "\n" (monitor: ''
-      hyprctl hyprpaper wallpaper "${monitor.name},$(find -L ${
-        ./wallpapers
-      } -type f | shuf -n 1)"'')
-    cfg.monitors);
+    ''
+      HYPRPAPER_SOCK="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.hyprpaper.sock"
+      if [[ ! -S "$HYPRPAPER_SOCK" ]]; then
+        echo "hyprpaper socket not found at $HYPRPAPER_SOCK"
+        exit 1
+      fi
+      WALLPAPER="$(find -L ${./wallpapers} -type f | shuf -n 1)"
+      ${lib.strings.concatMapStringsSep "\n" (monitor: ''
+        echo "wallpaper = ${monitor.name},$WALLPAPER" | ${pkgs.socat}/bin/socat - UNIX-CONNECT:"$HYPRPAPER_SOCK"
+      '') cfg.monitors}
+    '';
 in {
   config = lib.mkIf cfg.enable {
     home.packages = [changeWallpaper];
