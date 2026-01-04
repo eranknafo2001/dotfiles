@@ -2,6 +2,8 @@
   pkgs,
   lib,
   config,
+  inputs,
+  system,
   ...
 }: let
   cfg = config.my.hyprland;
@@ -18,13 +20,14 @@ in {
 
     services.hyprpaper = {
       enable = true;
+      package = inputs.hyprpaper.packages.${system}.default;
       settings = {
         ipc = true;
         wallpaper =
           (lib.map (monitor: {
             monitor = monitor.name;
             path = "${./wallpapers}/1.jpg";
-          mode = "cover";
+          # mode = "cover";
           }) cfg.monitors  );
         preload =
           builtins.map (name: "${./wallpapers}/${name}")
