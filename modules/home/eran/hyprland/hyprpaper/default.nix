@@ -27,7 +27,7 @@ in {
           (lib.map (monitor: {
             monitor = monitor.name;
             path = "${./wallpapers}/1.jpg";
-          mode = "cover";
+          # mode = "cover";
           }) cfg.monitors  );
         preload =
           builtins.map (name: "${./wallpapers}/${name}")
