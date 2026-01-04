@@ -20,5 +20,6 @@
     ./star-citizen.nix
     ./automount.nix
     ./vr.nix
+    ./hibernation.nix
   ];
 }

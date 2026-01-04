@@ -1,6 +1,11 @@
 {...}: {
   my = {
     automount.enable = true;
+    hibernation = {
+      enable = true;
+      laptop = true;
+      resumeDevice = "/dev/nvme0n1p3";
+    };
     gaming.enable = false;
     docker.enable = true;
     mpd.enable = true;

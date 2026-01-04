@@ -46,6 +46,19 @@
     star-citizen.enable = lib.mkEnableOption "star-citizen";
     automount.enable = lib.mkEnableOption "automount";
     opencode.enable = lib.mkEnableOption "opencode";
+    hibernation = {
+      enable = lib.mkEnableOption "hibernation";
+      resumeDevice = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "The swap device to resume from (e.g., /dev/nvme0n1p3)";
+      };
+      laptop = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enable laptop-specific settings (lid switch, power button)";
+      };
+    };
     btca = {
       enable = lib.mkEnableOption "btca";
       repos = lib.mkOption {
