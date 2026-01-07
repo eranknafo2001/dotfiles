@@ -21,5 +21,6 @@
     ./automount.nix
     ./vr.nix
     ./hibernation.nix
+    ./laptop.nix
   ];
 }

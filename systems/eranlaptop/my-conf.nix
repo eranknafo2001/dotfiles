@@ -1,5 +1,6 @@
 {...}: {
   my = {
+    laptop.enable = true;
     automount.enable = true;
     hibernation = {
       enable = true;

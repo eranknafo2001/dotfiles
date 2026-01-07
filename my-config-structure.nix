@@ -59,6 +59,7 @@
         description = "Enable laptop-specific settings (lid switch, power button)";
       };
     };
+    laptop.enable = lib.mkEnableOption "laptop power management (thermald + TLP)";
     btca = {
       enable = lib.mkEnableOption "btca";
       repos = lib.mkOption {
