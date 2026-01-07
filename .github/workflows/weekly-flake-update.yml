@@ -1,0 +1,96 @@
+name: Weekly Flake Update and Cache
+
+on:
+  schedule:
+    # Run every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: ${{ secrets.CACHIX_CACHE_NAME }}
+          # Use signing key for write access (recommended)
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          # OR use authToken (if you have a private cache or prefer tokens)
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          # Also configure existing caches for faster builds
+          extraPullNames: hyprland,nix-community
+
+      - name: Update flake.lock
+        run: |
+          nix flake update --commit-lock-file
+          echo "FLAKE_UPDATED=true" >> $GITHUB_ENV
+
+      - name: Build eranpc NixOS configuration
+        run: |
+          echo "Building eranpc system..."
+          nix build .#nixosConfigurations.eranpc.config.system.build.toplevel --print-build-logs
+
+      - name: Build eranlaptop NixOS configuration
+        run: |
+          echo "Building eranlaptop system..."
+          nix build .#nixosConfigurations.eranlaptop.config.system.build.toplevel --print-build-logs
+
+      - name: Build eranpc Home Manager configuration
+        run: |
+          echo "Building eranpc home configuration..."
+          nix build .#homeConfigurations.eranpc.activationPackage --print-build-logs
+
+      - name: Build eranlaptop Home Manager configuration
+        run: |
+          echo "Building eranlaptop home configuration..."
+          nix build .#homeConfigurations.eranlaptop.activationPackage --print-build-logs
+
+      - name: Create branch and push
+        if: env.FLAKE_UPDATED == 'true'
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Create branch name with date
+          BRANCH_NAME="weekly-update/$(date +%Y-%m-%d)"
+
+          # Check if commit was created by flake update
+          if git diff --quiet HEAD^ HEAD 2>/dev/null; then
+            echo "No changes to flake.lock, skipping branch creation"
+            exit 0
+          fi
+
+          # Create and push branch
+          git checkout -b "$BRANCH_NAME"
+          git push origin "$BRANCH_NAME"
+
+          echo "Created and pushed branch: $BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Summary
+        if: env.FLAKE_UPDATED == 'true'
+        run: |
+          echo "✅ Flake updated and all systems built successfully!"
+          echo "📦 All derivations uploaded to Cachix"
+          echo "🌿 Branch created: ${{ env.BRANCH_NAME }}"
+          echo ""
+          echo "To use the updated configuration with cached builds:"
+          echo "  git fetch origin"
+          echo "  git checkout ${{ env.BRANCH_NAME }}"
+          echo "  sudo nixos-rebuild switch --flake .#<hostname>"
