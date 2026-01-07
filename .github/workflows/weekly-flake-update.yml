@@ -17,9 +17,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: cachix/install-nix-action@v25
         with:
-          extra-conf: |
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
             experimental-features = nix-command flakes
             accept-flake-config = true
 
@@ -27,7 +28,10 @@ jobs:
         uses: cachix/cachix-action@v14
         with:
           name: ${{ secrets.CACHIX_CACHE_NAME }}
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          # Use signing key for write access (recommended)
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+          # OR use authToken (if you have a private cache or prefer tokens)
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           # Also configure existing caches for faster builds
           extraPullNames: hyprland,nix-community
 

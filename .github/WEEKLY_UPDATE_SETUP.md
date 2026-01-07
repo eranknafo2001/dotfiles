@@ -31,15 +31,29 @@ cachix authtoken <YOUR_TOKEN>
 # Create your cache (e.g., "eranknafo2001" or "dotfiles")
 cachix create <cache-name>
 
-# Generate an auth token for GitHub Actions
+# Generate a signing keypair for the cache
 cachix generate-keypair <cache-name>
 ```
 
-Visit https://app.cachix.org to manage your caches and get your auth token.
+Visit https://app.cachix.org to manage your caches.
 
 ### 2. Configure GitHub repository secrets
 
-Add these secrets to your GitHub repository:
+You need to choose **ONE** of two authentication methods:
+
+#### Option A: Signing Key (Recommended)
+
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret** and add:
+
+   - **Name:** `CACHIX_CACHE_NAME`
+     **Value:** Your cache name (e.g., `eranknafo2001`)
+
+   - **Name:** `CACHIX_SIGNING_KEY`
+     **Value:** Your cache signing key (get it from https://app.cachix.org or from the `cachix generate-keypair` output)
+
+#### Option B: Auth Token (For private caches or if you prefer)
 
 1. Go to your repository on GitHub
 2. Navigate to **Settings** → **Secrets and variables** → **Actions**
@@ -49,7 +63,9 @@ Add these secrets to your GitHub repository:
      **Value:** Your cache name (e.g., `eranknafo2001`)
 
    - **Name:** `CACHIX_AUTH_TOKEN`
-     **Value:** Your Cachix auth token (from step 1)
+     **Value:** Your Cachix auth token (get it from https://app.cachix.org)
+
+**Note:** The workflow supports both methods. If you provide both secrets, both will be used (which is fine).
 
 ### 3. Update your system configuration to use your cache
 
@@ -78,13 +94,7 @@ cachix use <your-cache-name>
 
 ### 4. Enable GitHub Actions
 
-Push this branch and the workflow will be ready to run!
-
-```bash
-git add .github/
-git commit -m "Add weekly flake update CI workflow"
-git push origin claude/weekly-flake-ci-cache-Q8BR1
-```
+Merge or push the branch with the workflow and it will be ready to run!
 
 ### 5. Test the workflow manually (optional)
 
