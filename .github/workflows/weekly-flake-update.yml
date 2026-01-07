@@ -35,6 +35,11 @@ jobs:
           # Also configure existing caches for faster builds
           extraPullNames: hyprland,nix-community
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Update flake.lock
         run: |
           nix flake update --commit-lock-file
@@ -63,10 +68,6 @@ jobs:
       - name: Create branch and push
         if: env.FLAKE_UPDATED == 'true'
         run: |
-          # Configure git
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
           # Create branch name with date
           BRANCH_NAME="weekly-update/$(date +%Y-%m-%d)"
 
