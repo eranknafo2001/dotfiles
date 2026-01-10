@@ -75,6 +75,21 @@ in {
           dark = "Tokyo Night";
           light = "Tokyo Night";
         };
+        minimap.show = "auto";
+        use_smartcase_search = true;
+        active_pane_modifiers = {
+          border_size = 0.0;
+          inactive_opacity = 0.7;
+        };
+        tabs = {
+          show_diagnostics = "off";
+          file_icons = false;
+          git_status = true;
+        };
+        title_bar = {
+          show_menus = false;
+          show_branch_icon = true;
+        };
         terminal = {
           copy_on_select = false;
           shell.program = "fish";
@@ -87,9 +102,12 @@ in {
           gitlab-ci.binary.path = "${pkgs.gitlab-ci-ls}/bin/gitlab-ci-ls";
           elixir-ls.binary.path = "${pkgs.elixir-ls}/bin/elixir-ls";
         };
-        # languages = {
-        #   Nix.formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
-        # };
+        languages.Nix.formatter.external.command = "${pkgs.alejandra}/bin/alejandra";
+        agent_servers.claude = {
+          # env.CLAUDE_CODE_EXECUTABLE = "/path/to/alternate-claude-code-executable";
+          default_model = "opus";
+          default_mode = "plan";
+        };
         load_direnv = "direct";
         show_whitespaces = "selection";
         agent = {
@@ -98,11 +116,9 @@ in {
             provider = "openrouter";
             model = "anthropic/claude-opus-4";
           };
-          inline_assistant = {
-            default_model = {
-              provider = "openrouter";
-              model = "z-ai/glm-4.7";
-            };
+          inline_assistant.default_model = {
+            provider = "openrouter";
+            model = "z-ai/glm-4.7";
           };
         };
         vim = {
@@ -117,6 +133,12 @@ in {
         };
       };
       userKeymaps = [
+        {
+          context = "AgentPanel";
+          bindings = {
+            "ctrl-shift-m" = "agent::CycleModeSelector";
+          };
+        }
         {
           context = "VimControl || !Editor && !Terminal";
           bindings = {
