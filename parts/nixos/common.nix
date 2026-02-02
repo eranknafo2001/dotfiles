@@ -1,0 +1,84 @@
+# Common system configuration - base packages, locale, nix settings
+{...}: {
+  nixosModules = [
+    ({pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        gcc
+        gnumake
+        home-manager
+        pavucontrol
+        htop
+        unzip
+        evil-helix
+        git
+      ];
+
+      fonts.enableDefaultPackages = true;
+
+      programs.firefox.enable = true;
+
+      programs.nh = {
+        enable = true;
+        clean.enable = true;
+        clean.extraArgs = "--keep-since 4d --keep 3";
+        flake = "/home/eran/dotfiles";
+      };
+
+      networking.networkmanager.enable = true;
+      nix.settings = {
+        experimental-features = ["nix-command" "flakes"];
+        substituters = [
+          "https://hyprland.cachix.org"
+          "https://nix-community.cachix.org"
+        ];
+        trusted-public-keys = [
+          "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+      };
+
+      i18n.defaultLocale = "en_US.UTF-8";
+
+      i18n.extraLocaleSettings = {
+        LC_ADDRESS = "he_IL.UTF-8";
+        LC_IDENTIFICATION = "he_IL.UTF-8";
+        LC_MEASUREMENT = "he_IL.UTF-8";
+        LC_MONETARY = "he_IL.UTF-8";
+        LC_NAME = "he_IL.UTF-8";
+        LC_NUMERIC = "he_IL.UTF-8";
+        LC_PAPER = "he_IL.UTF-8";
+        LC_TELEPHONE = "he_IL.UTF-8";
+        LC_TIME = "en_IL";
+      };
+
+      services = {
+        xserver = {
+          xkb = {
+            layout = "us,il";
+            variant = ",";
+            options = "grp:win_space_toggle";
+          };
+        };
+
+        printing.enable = true;
+      };
+
+      boot.binfmt.registrations.appimage = {
+        wrapInterpreterInShell = false;
+        interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+        recognitionType = "magic";
+        offset = 0;
+        mask = "\\xff\\xff\\xff\\xff\\x00\\x00\\x00\\x00\\xff\\xff\\xff";
+        magicOrExtension = "\\x7fELF....AI\\x02";
+      };
+
+      nixpkgs = {
+        flake.setFlakeRegistry = true;
+        config = {
+          allowUnfreePredicate = _: true;
+          allowUnfree = true;
+        };
+      };
+    })
+  ];
+}

@@ -4,6 +4,5 @@
     username = "eran";
     hostname = "eranpc";
     myConf = ../../systems/eranpc/my-conf.nix;
-    homeModules = ../../modules/home/eran/default.nix;
   };
 }

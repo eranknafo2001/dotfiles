@@ -1,6 +1,12 @@
-# Shared utilities for creating configurations
-# This module provides helper functions used by host and home modules
-{inputs, lib, ...}: let
+# Dendritic Pattern infrastructure
+# Defines options for collecting NixOS and Home Manager modules from feature files
+{
+  inputs,
+  lib,
+  config,
+  ...
+}: let
+  inherit (lib) mkOption types;
   system = "x86_64-linux";
 
   # Create pkgs with all overlays applied
@@ -35,14 +41,29 @@
       };
       modules =
         [
+          # Option definitions
           ../my-config-structure.nix
+
+          # NUR
           inputs.nur.modules.nixos.default
+
+          # Hardware
           hardwareConfig
+
+          # Host values
           myConf
+
+          # Common values
           ../systems/common-conf.nix
-          ../modules/system/default.nix
+
+          # Set hostname
           {networking.hostName = hostname;}
         ]
+        # Collected NixOS modules from all feature files
+        ++ config.nixosModules
+        # Per-host modules
+        ++ (config.nixosModulesFor.${hostname} or [])
+        # Extra modules passed directly
         ++ extraModules;
     };
 
@@ -51,7 +72,6 @@
     username,
     hostname,
     myConf,
-    homeModules,
     extraModules ? [],
   }:
     inputs.home-manager.lib.homeManagerConfiguration {
@@ -62,15 +82,65 @@
       };
       modules =
         [
+          # Option definitions
           ../my-config-structure.nix
+
+          # Host values
           myConf
+
+          # Common values
           ../systems/common-conf.nix
-          homeModules
+
+          # User base config
+          ({...}: {
+            home = {
+              username = username;
+              homeDirectory = "/home/${username}";
+              stateVersion = "24.05";
+            };
+            programs.home-manager.enable = true;
+          })
         ]
+        # Collected Home Manager modules from all feature files
+        ++ config.homeModules
+        # Per-host home modules
+        ++ (config.homeModulesFor."${username}@${hostname}" or [])
+        # Extra modules passed directly
         ++ extraModules;
     };
 in {
-  # Export these as flake-parts module args for use by other modules
+  # Define options for collecting modules from feature files
+  options = {
+    # NixOS modules contributed by feature files
+    nixosModules = mkOption {
+      type = types.listOf types.deferredModule;
+      default = [];
+      description = "NixOS modules collected from all feature files";
+    };
+
+    # Per-host NixOS modules
+    nixosModulesFor = mkOption {
+      type = types.attrsOf (types.listOf types.deferredModule);
+      default = {};
+      description = "NixOS modules for specific hosts";
+    };
+
+    # Home Manager modules contributed by feature files
+    homeModules = mkOption {
+      type = types.listOf types.deferredModule;
+      default = [];
+      description = "Home Manager modules collected from all feature files";
+    };
+
+    # Per-user@host Home Manager modules
+    homeModulesFor = mkOption {
+      type = types.attrsOf (types.listOf types.deferredModule);
+      default = {};
+      description = "Home Manager modules for specific user@host combinations";
+    };
+  };
+
+  # Export helpers as module args
   _module.args = {
     inherit mkPkgs mkExtendedLib mkExtendedLibHm mkNixosConfiguration mkHomeConfiguration;
     defaultSystem = system;
