@@ -80,6 +80,11 @@
 
     opencode.url = "github:sst/opencode/v1.0.206";
 
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
 
