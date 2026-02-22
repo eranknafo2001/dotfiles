@@ -107,6 +107,9 @@
       overlays = [
         extra-nix-packages.overlays.${system}.default
         nur.overlays.default
+        (_final: prev: {
+          heaper = prev.callPackage ./packages/heaper.nix {};
+        })
       ];
     };
     # pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
