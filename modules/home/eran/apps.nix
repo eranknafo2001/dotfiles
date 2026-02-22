@@ -12,7 +12,6 @@
     bitwarden-desktop
     # stremio
     prusa-slicer
-    heaper
     #kicad
     #rustdesk
   ];
