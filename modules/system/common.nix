@@ -71,6 +71,9 @@
     # };
   };
 
+  # Enable aarch64 emulation (for cross-building RPi images etc.)
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;
     interpreter = "${pkgs.appimage-run}/bin/appimage-run";
