@@ -85,6 +85,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    heaper = {
+      url = "github:node-openclaw/heaper-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
 
@@ -107,9 +112,7 @@
       overlays = [
         extra-nix-packages.overlays.${system}.default
         nur.overlays.default
-        (_final: prev: {
-          heaper = prev.callPackage ./packages/heaper.nix {};
-        })
+        inputs.heaper.overlays.default
       ];
     };
     # pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
