@@ -21,7 +21,18 @@
     flake = "/home/eran/dotfiles";
   };
 
-  networking.networkmanager.enable = true;
+  networking = {
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
+
+    # Ignore DNS provided by DHCP and use static resolver.
+    dhcpcd.extraConfig = ''
+      nohook resolv.conf
+    '';
+    nameservers = ["1.1.1.1"];
+  };
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     substituters = [
