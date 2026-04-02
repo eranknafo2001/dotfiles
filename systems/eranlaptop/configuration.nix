@@ -5,6 +5,13 @@
     ../../modules/system/default.nix
   ];
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    gamescopeSession.enable = true;
+  };
+
   boot = {
     loader = {
       systemd-boot.enable = false;

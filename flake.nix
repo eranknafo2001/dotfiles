@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs-new.url = "github:nixos/nixpkgs/nixos-unstable";
 
     extra-nix-packages = {
       url = "github:eranknafo2001/extra-nix-packages";
@@ -91,6 +92,11 @@
     wivrn = {
       url = "github:eranknafo2001/WiVRn/fix/on-v25.12";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

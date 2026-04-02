@@ -86,6 +86,7 @@ in {
             "hyprctl setcursor Bibata-Modern-Ice 24"
             "sleep 3 && ${changeWallpaperService}/bin/changeWallpaperService"
           ];
+        xwayland.force_zero_scaling = true;
         env = ["XCURSOR_SIZE,24" "HYPRCURSOR_SIZE,24"];
         general = {
           gaps_in = 5;

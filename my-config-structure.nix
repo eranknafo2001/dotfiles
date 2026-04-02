@@ -46,6 +46,7 @@
     star-citizen.enable = lib.mkEnableOption "star-citizen";
     automount.enable = lib.mkEnableOption "automount";
     opencode.enable = lib.mkEnableOption "opencode";
+    pi-ai.enable = lib.mkEnableOption "pi-ai";
     hibernation = {
       enable = lib.mkEnableOption "hibernation";
       resumeDevice = lib.mkOption {
