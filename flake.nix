@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
     # nixpkgs-new.url = "github:nixos/nixpkgs/nixos-unstable";
 
     extra-nix-packages = {
@@ -100,53 +102,6 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nur,
-    extra-nix-packages,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [
-        extra-nix-packages.overlays.${system}.default
-        nur.overlays.default
-      ];
-    };
-    # pkgs = nixpkgs.legacyPackages.${system}.extend extra-nix-packages.overlays.${system}.default;
-    lib = nixpkgs.lib.extend (_final: _prev: (import ./lib/default.nix {inherit pkgs;}));
-    libHomeManager = lib.extend (_final: _prev: home-manager.lib);
-  in {
-    nixosConfigurations = {
-      eranpc = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit system inputs lib;};
-        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranpc/configuration.nix ./systems/eranpc/my-conf.nix ./systems/common-conf.nix];
-      };
-      eranlaptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit system inputs lib;};
-        modules = [./my-config-structure.nix nur.modules.nixos.default ./systems/eranlaptop/configuration.nix ./systems/eranlaptop/my-conf.nix ./systems/common-conf.nix];
-      };
-    };
-
-    homeConfigurations = {
-      "eran@eranpc" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit system inputs;
-          lib = libHomeManager;
-        };
-        modules = [./my-config-structure.nix ./systems/eranpc/my-conf.nix ./modules/home/eran/default.nix ./systems/common-conf.nix];
-      };
-      "eran@eranlaptop" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {
-          inherit system inputs;
-          lib = libHomeManager;
-        };
-        modules = [./my-config-structure.nix ./systems/eranlaptop/my-conf.nix ./modules/home/eran/default.nix ./systems/common-conf.nix];
-      };
-    };
-  };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./flake-modules);
 }

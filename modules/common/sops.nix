@@ -1,5 +1,0 @@
-{...}: {
-  sops = {
-    defaultSopsFile = ../../secrets.yaml;
-  };
-}

@@ -25,34 +25,45 @@ Delete the `result` symlink after building to avoid bloating the project.
 This is a NixOS/Home Manager flake with two hosts: `eranpc` (desktop) and `eranlaptop` (laptop).
 
 ### Key Files
-- `flake.nix` - Flake inputs and configuration outputs
-- `my-config-structure.nix` - Centralized `my.*` option definitions (declarations only, no values)
-- `systems/<host>/my-conf.nix` - Feature flags per machine (option values)
-- `systems/common-conf.nix` - Shared configuration across hosts
+- `flake.nix` - flake inputs and `flake-parts` bootstrap
+- `flake-modules/` - flake-parts modules that define outputs
+- `hosts/<host>/` - host configuration, hardware, and profile values
 
 ### Module Locations
-- `modules/system/` - NixOS system modules
-- `modules/home/eran/` - Home Manager user modules
-- `lib/mkSecretWrapper.nix` - Utility to inject SOPS secrets into packages
+- `modules/system/` - reusable NixOS implementation modules
+- `modules/home/eran/` - reusable Home Manager implementation modules
+- `lib/mkSecretWrapper.nix` - utility to inject SOPS secrets into packages
 
 ### Adding a New Feature
-1. Add option definition to `my-config-structure.nix` (e.g., `my.feature.enable = lib.mkEnableOption "feature";`)
-2. Create module in `modules/system/` or `modules/home/eran/`
-3. Import the module in the respective `default.nix`
-4. Set option value in `systems/<host>/my-conf.nix` (e.g., `my.feature.enable = true;`)
+1. Create or update the implementation module in `modules/system/` or `modules/home/eran/`
+2. Export it from `flake-modules/nixos-modules.nix` or `flake-modules/home-modules.nix`
+3. Import the named module in the relevant host composition
+4. If the feature needs parameters, add them in `hosts/<host>/profile.nix` or `hosts/<host>/home-profile.nix`
 
 ## Code Style
 - **Indentation**: 2 spaces
 - **Filenames**: kebab-case (`claude-code.nix`)
 - **Variables**: camelCase (`cfg`, `changeWallpaperService`)
-- **Custom options**: `my.*` prefix (`my.gaming.enable`)
 - **Imports**: Relative paths (`./file.nix`)
 
 ## Module Pattern
+Pure features should be enabled by importing the module, not by an `enable` boolean.
+
 ```nix
-{ pkgs, lib, config, ... }:
-let cfg = config.my.feature;
-in { config = lib.mkIf cfg.enable { ... }; }
+{ ... }: {
+  services.tailscale.enable = true;
+}
 ```
 
-Use `lib.mkIf` for conditional config, `lib.mkEnableOption` for booleans, `with pkgs;` for package lists.
+Parameterized modules may define local options when needed:
+
+```nix
+{ lib, config, ... }:
+let cfg = config.my.hyprland;
+in {
+  options.my.hyprland.monitors = lib.mkOption { ...; };
+  config = { ... };
+}
+```
+
+Use `with pkgs;` for package lists and `lib.mkOption` for real parameters.

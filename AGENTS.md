@@ -21,32 +21,42 @@ After building, delete the `result` symlink to avoid bloating the project.
 - **Indentation**: 2 spaces
 - **Filenames**: kebab-case (`claude-code.nix`)
 - **Variables**: camelCase (`cfg`, `changeWallpaperService`)
-- **Custom options**: `my.*` prefix (`my.gaming.enable`)
 - **Imports**: Relative paths (`./file.nix`, `../../secrets.yaml`)
 
 ## Module Patterns
+Prefer import-based composition over feature booleans.
+
+### Pure feature module
 ```nix
-{ pkgs, lib, config, ... }:
-let cfg = config.my.feature;
-in { config = lib.mkIf cfg.enable { ... }; }
+{ ... }: {
+  services.tailscale.enable = true;
+}
 ```
-- Use `lib.mkIf` for conditional config, `lib.mkEnableOption` for booleans
+
+### Parameterized module
+```nix
+{ lib, config, ... }:
+let cfg = config.my.hyprland;
+in {
+  options.my.hyprland.monitors = lib.mkOption { ...; };
+  config = { ... };
+}
+```
+
+- If a feature does not need parameters, do not define an `enable` option
+- If a feature needs parameters, define only the specific local options it needs
 - Use `with pkgs;` for package lists
 - Define types via `lib.mkOption { type = lib.types.X; }`
 
 ## Structure
-- `systems/<host>/my-conf.nix` - Feature flags per machine
-- `modules/system/` - NixOS modules, `modules/home/eran/` - Home Manager
-- `lib/mkSecretWrapper.nix` - Inject secrets into packages via SOPS
-
-## Configuration Options (`my-config-structure.nix`)
-All `my.*` option definitions are centralized in `my-config-structure.nix`. This file:
-- Defines all available `my.*` options using `lib.mkEnableOption` or `lib.mkOption`
-- Is imported by both NixOS and Home Manager configurations
-- Does NOT contain option values - only option declarations
+- `flake-modules/` - flake-parts modules and flake outputs
+- `hosts/<host>/` - host configuration, hardware, and profile values
+- `modules/system/` - reusable NixOS implementation modules
+- `modules/home/eran/` - reusable Home Manager implementation modules
+- `lib/mkSecretWrapper.nix` - inject secrets into packages via SOPS
 
 When adding a new feature:
-1. Add the option definition to `my-config-structure.nix` (e.g., `my.feature.enable = lib.mkEnableOption "feature";`)
-2. Create the module in `modules/system/` or `modules/home/eran/` that uses `config.my.feature`
-3. Import the module in the respective `default.nix`
-4. Set the option value in `systems/<host>/my-conf.nix` (e.g., `my.feature.enable = true;`)
+1. Create or update the implementation module in `modules/system/` or `modules/home/eran/`
+2. Export it from `flake-modules/nixos-modules.nix` or `flake-modules/home-modules.nix`
+3. Import the named module in the relevant host composition
+4. If needed, add host-specific parameter values in `hosts/<host>/profile.nix` or `hosts/<host>/home-profile.nix`
