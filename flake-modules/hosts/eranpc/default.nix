@@ -1,22 +1,29 @@
-{self, inputs, ...}: let
+{
+  self,
+  inputs,
+  ...
+}: let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs {
     inherit system;
     overlays = [
       inputs.extra-nix-packages.overlays.${system}.default
       inputs.nur.overlays.default
+      inputs.llm-agents.overlays.default
     ];
   };
   lib = inputs.nixpkgs.lib.extend (_final: _prev: (import ../../../lib/default.nix {inherit pkgs;}));
   libHomeManager = lib.extend (_final: _prev: inputs.home-manager.lib);
-  nixosInputs = inputs // {
-    llm-agents.packages = inputs.llm-agents.packages;
-    self = {inherit lib;};
-  };
-  homeInputs = inputs // {
-    llm-agents.packages = inputs.llm-agents.packages;
-    self.lib = libHomeManager;
-  };
+  nixosInputs =
+    inputs
+    // {
+      self = {inherit lib;};
+    };
+  homeInputs =
+    inputs
+    // {
+      self.lib = libHomeManager;
+    };
 in {
   flake.nixosConfigurations.eranpc = inputs.nixpkgs.lib.nixosSystem {
     inherit system;

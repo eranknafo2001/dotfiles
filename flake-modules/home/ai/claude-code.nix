@@ -1,14 +1,8 @@
 {...}: {
-  flake.homeModules.ai-claude-code =
-    {
-      inputs,
-      system,
-      ...
-    }: {
-      programs.claude-code = {
-        enable = true;
-        package = inputs.claude-code.packages.${system}.default;
-      };
-    }
-;
+  flake.homeModules.ai-claude-code = {pkgs, ...}: {
+    programs.claude-code = {
+      enable = true;
+      package = pkgs.llm-agents.claude-code;
+    };
+  };
 }

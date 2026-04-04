@@ -81,20 +81,8 @@
 
     nix-citizen.url = "github:LovingMelody/nix-citizen";
 
-    opencode.url = "github:sst/opencode/v1.0.206";
-
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # nix-gaming.url = "github:fufexan/nix-gaming";
     # nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
-
-    wivrn = {
-      url = "github:eranknafo2001/WiVRn/fix/on-v25.12";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
