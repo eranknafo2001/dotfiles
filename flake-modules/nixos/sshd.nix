@@ -1,10 +1,8 @@
 {...}: {
-  flake.nixosModules.sshd =
-    {...}: {
-      services.openssh = {
-        enable = true;
-        settings.PasswordAuthentication = true;
-      };
-    }
-;
+  flake.nixosModules.sshd = {...}: {
+    services.openssh = {
+      enable = true;
+      settings.PasswordAuthentication = true;
+    };
+  };
 }

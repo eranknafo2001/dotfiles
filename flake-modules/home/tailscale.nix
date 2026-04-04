@@ -1,7 +1,5 @@
 {...}: {
-  flake.homeModules.tailscale =
-    {...}: {
-      services.trayscale.enable = true;
-    }
-;
+  flake.homeModules.tailscale = {...}: {
+    services.trayscale.enable = true;
+  };
 }

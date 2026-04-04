@@ -1,7 +1,5 @@
 {...}: {
-  flake.nixosModules.kde-connect =
-    {...}: {
-      programs.kdeconnect.enable = true;
-    }
-;
+  flake.nixosModules.kde-connect = {...}: {
+    programs.kdeconnect.enable = true;
+  };
 }

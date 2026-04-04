@@ -1,11 +1,9 @@
 {...}: {
-  flake.nixosModules.mpd =
-    {...}: {
-      services.mpd = {
-        enable = true;
-        network.listenAddress = "any";
-        startWhenNeeded = true;
-      };
-    }
-;
+  flake.nixosModules.mpd = {...}: {
+    services.mpd = {
+      enable = true;
+      network.listenAddress = "any";
+      startWhenNeeded = true;
+    };
+  };
 }

@@ -1,10 +1,8 @@
 {...}: {
-  flake.nixosModules.tailscale =
-    {...}: {
-      services.tailscale = {
-        enable = true;
-        openFirewall = true;
-      };
-    }
-;
+  flake.nixosModules.tailscale = {...}: {
+    services.tailscale = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
 }

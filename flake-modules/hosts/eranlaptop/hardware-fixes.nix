@@ -1,8 +1,5 @@
 {...}: {
-  flake.nixosModules.eranlaptop-hardware-fixes = {
-    pkgs,
-    ...
-  }: {
+  flake.nixosModules.eranlaptop-hardware-fixes = {pkgs, ...}: {
     services.udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="platform", KERNEL=="asus-wlan", \
         TAG+="systemd", ENV{SYSTEMD_WANTS}="unblock-asus-wlan.service"

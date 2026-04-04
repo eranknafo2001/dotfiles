@@ -1,20 +1,18 @@
 {...}: {
-  flake.nixosModules.user =
-    {...}: {
+  flake.nixosModules.user = {...}: {
+    users = {
+      mutableUsers = false;
       users = {
-        mutableUsers = false;
-        users = {
-          eran = {
-            isNormalUser = true;
-            description = "Eran Knafo";
-            extraGroups = ["networkmanager" "wheel" "dialout" "input" "adbusers" "kvm"];
-            hashedPassword = "$y$j9T$tD9ynCDDUUQt7V.SvsZI5.$UXPNkK4PIpnaIr5bT3AHqsSNLm8ZAWCJm4/4qYF0KaC";
-          };
-          root.hashedPassword = "$y$j9T$jPygLq0cBfqbzSBjnLchA1$0gOHnctTMQQCtqFuW2AmjCOhYltrFQYD7eRGwfX6K45";
+        eran = {
+          isNormalUser = true;
+          description = "Eran Knafo";
+          extraGroups = ["networkmanager" "wheel" "dialout" "input" "adbusers" "kvm"];
+          hashedPassword = "$y$j9T$tD9ynCDDUUQt7V.SvsZI5.$UXPNkK4PIpnaIr5bT3AHqsSNLm8ZAWCJm4/4qYF0KaC";
         };
+        root.hashedPassword = "$y$j9T$jPygLq0cBfqbzSBjnLchA1$0gOHnctTMQQCtqFuW2AmjCOhYltrFQYD7eRGwfX6K45";
       };
-    
-      nix.settings.trusted-users = ["eran"];
-    }
-;
+    };
+
+    nix.settings.trusted-users = ["eran"];
+  };
 }

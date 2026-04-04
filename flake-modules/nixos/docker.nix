@@ -1,8 +1,6 @@
 {...}: {
-  flake.nixosModules.docker =
-    {...}: {
-      virtualisation.docker.enable = true;
-      users.extraGroups.docker.members = ["eran"];
-    }
-;
+  flake.nixosModules.docker = {...}: {
+    virtualisation.docker.enable = true;
+    users.extraGroups.docker.members = ["eran"];
+  };
 }

@@ -97,7 +97,8 @@
       };
     };
     hyprpaperModule = let
-      changeWallpaper = pkgs.writeShellScriptBin "changeWallpaper"
+      changeWallpaper =
+        pkgs.writeShellScriptBin "changeWallpaper"
         (lib.strings.concatMapStringsSep "\n" (monitor: ''
           hyprctl hyprpaper wallpaper "${monitor.name},$(find -L ${../assets/hyprland/wallpapers} -type f | shuf -n 1)"'')
         cfg.monitors);
@@ -108,11 +109,14 @@
         package = inputs.hyprpaper.packages.${system}.default;
         settings = {
           ipc = true;
-          wallpaper = lib.map (monitor: {
-            monitor = monitor.name;
-            path = "${../assets/hyprland/wallpapers}/1.jpg";
-          }) cfg.monitors;
-          preload = builtins.map (name: "${../assets/hyprland/wallpapers}/${name}")
+          wallpaper =
+            lib.map (monitor: {
+              monitor = monitor.name;
+              path = "${../assets/hyprland/wallpapers}/1.jpg";
+            })
+            cfg.monitors;
+          preload =
+            builtins.map (name: "${../assets/hyprland/wallpapers}/${name}")
             (builtins.attrNames (builtins.readDir ../assets/hyprland/wallpapers));
         };
       };
@@ -289,10 +293,10 @@
         type = with lib.types;
           listOf (submodule {
             options = {
-              name = lib.mkOption { type = str; };
-              resolution = lib.mkOption { type = str; };
-              position = lib.mkOption { type = str; };
-              scale = lib.mkOption { type = float; };
+              name = lib.mkOption {type = str;};
+              resolution = lib.mkOption {type = str;};
+              position = lib.mkOption {type = str;};
+              scale = lib.mkOption {type = float;};
             };
           });
         default = [];
@@ -383,9 +387,12 @@
               vibrancy = 0.1696;
             };
           };
-          monitor = builtins.map (monitor:
-            with monitor; "${name},${resolution},${position},${toString scale}"
-          ) cfg.monitors;
+          monitor =
+            builtins.map (
+              monitor:
+                with monitor; "${name},${resolution},${position},${toString scale}"
+            )
+            cfg.monitors;
           animations = {
             enabled = true;
             bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";

@@ -1,7 +1,5 @@
 {...}: {
-  flake.homeModules.bevy =
-    {pkgs, ...}: {
-      home.packages = [pkgs.bevy-cli];
-    }
-;
+  flake.homeModules.bevy = {pkgs, ...}: {
+    home.packages = [pkgs.bevy-cli];
+  };
 }
